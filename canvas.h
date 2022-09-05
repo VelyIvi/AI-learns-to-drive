@@ -1,18 +1,20 @@
 #include <raylib.h>
+#include "iostream"
 
 class Canvas{
     private:
         Vector2 TRUE_SIZE = {1500, 800};
         Vector2 seen_size;
-        int MARGIN = 20;
+        int MARGIN = 10;
     public:
         Canvas(){
 
         }
 
         void XReduction(int x){
-            float proc = (x-MARGIN*1)/TRUE_SIZE.x;
-            seen_size = {TRUE_SIZE.x*proc, TRUE_SIZE.y*proc};
+            float procX = x/TRUE_SIZE.x - MARGIN*2/TRUE_SIZE.x;
+            float procY = x/TRUE_SIZE.x - MARGIN*2/TRUE_SIZE.y;
+            seen_size = {TRUE_SIZE.x*procX, TRUE_SIZE.y*procY};
         }
 
 
