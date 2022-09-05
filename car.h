@@ -18,6 +18,6 @@ class Car{
         }
 
         void Draw(){
-            DrawRectangleRec(getRec(), WHITE);
+            DrawRectanglePro(getRec(), position, 80.0f ,WHITE);
         }
 };

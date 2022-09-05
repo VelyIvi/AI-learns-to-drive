@@ -5,11 +5,15 @@
 #include "ui.h"
 
 Car car;
-Canvas canvas;
+
+Canvas menu (1);
+Canvas simulation (10);
+// Canvas nn (10);
+
 
 void Startup(){
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-    InitWindow(1500, 800, "/C++/ Ai Learns To Drive - By Ivan Velychko");
+    InitWindow(1800, 900, "/C++/ Ai Learns To Drive - By Ivan Velychko");
 
     
 
@@ -23,11 +27,9 @@ void Render(){
     BeginDrawing();
     ClearBackground(DARKGRAY);
     car.Draw();
-    canvas.XReduction(1500);
-    canvas.Draw();
-    DrawRectangle(0, 800, 100, 10, WHITE);
-    DrawRectangle(0, 0, 100, 10, WHITE);
+    menu.Draw(Vector2{10, 10}, Vector2{float(GetScreenWidth()), float(GetScreenHeight())}, Vector2{1, 0.03});
 
+    // simulation.Draw(Vector2{0, 10}, Vector2{float(GetScreenWidth()), float(GetScreenHeight())}, Vector2{0.7, 0.7});
 
     EndDrawing();
 
