@@ -6,10 +6,7 @@
 
 Car car;
 
-Canvas menu (1);
-Canvas simulation (10);
-// Canvas nn (10);
-
+Canvas simulation (0, Vector2{1500, 800});
 
 void Startup(){
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
@@ -26,13 +23,11 @@ void Startup(){
 void Render(){
     BeginDrawing();
     ClearBackground(DARKGRAY);
-    car.Draw();
-    menu.Draw(Vector2{10, 10}, Vector2{float(GetScreenWidth()), float(GetScreenHeight())}, Vector2{1, 0.03});
+    // car.Draw();
 
-    // simulation.Draw(Vector2{0, 10}, Vector2{float(GetScreenWidth()), float(GetScreenHeight())}, Vector2{0.7, 0.7});
+    simulation.Draw(Vector2{float(GetScreenWidth()*0.03), float(GetScreenHeight()*0.05)}, Vector2{float(GetScreenWidth()), float(GetScreenHeight())}, Vector2{0.7, 0.7});
 
     EndDrawing();
-
 }
 
 int main(void){

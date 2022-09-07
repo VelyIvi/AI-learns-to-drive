@@ -3,14 +3,14 @@
 
 class Canvas{
     private:
-        Vector2 TRUE_SIZE = {1500, 800};
+        Vector2 TRUE_SIZE;
         Vector2 seen_size;
         int MARGIN = 0;
     public:
-        Canvas(int margin){
+        Canvas(int margin, Vector2 size){
             MARGIN = margin;
+            TRUE_SIZE = size;
         }
-
 
         void Draw(Vector2 position, Vector2 screensize, Vector2 max_prec){
             float proc;
@@ -24,13 +24,13 @@ class Canvas{
 
             float procX = proc - MARGIN*2/TRUE_SIZE.x;
             float procY = proc - MARGIN*2/TRUE_SIZE.y;
-            seen_size = {TRUE_SIZE.x*procX, TRUE_SIZE.y*procY};
+            seen_size = {TRUE_SIZE.x*proc - MARGIN*2, TRUE_SIZE.y*proc - MARGIN*2};
 
-            DrawRectangle(MARGIN+position.x, MARGIN+position.y, seen_size.x, seen_size.y, RED);
-            DrawRectangleLines(position.x, position.y, TRUE_SIZE.x*proc, TRUE_SIZE.y*proc, WHITE);                   // Draw rectangle outline
+            DrawRectangle(MARGIN+position.x, MARGIN+position.y, seen_size.x, seen_size.y, RAYWHITE);
+            DrawRectangleLines(position.x, position.y, TRUE_SIZE.x*proc, TRUE_SIZE.y*proc, GRAY);                   // Draw rectangle outline
         }
 
-        void Update(){
+        void DrawObject(){
 
         }
 };
