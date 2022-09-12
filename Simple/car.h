@@ -10,11 +10,11 @@ class Car{
         Vector2 position;
         float angle;
 
-        double speed = 0;
-        const double accel = 1000.0;
-        const double max_speed = 500.0;
-        const double friction = 800.0;
-        const double turnSpeed = 200.0;
+        float speed = 0;
+        const float accel = 1200.0; //accelaration > friction
+        const float max_speed = 500.0;
+        const float friction = 800.0;
+        const float turnSpeed = 300.0;
 
         float speedTurn;
 

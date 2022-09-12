@@ -5,7 +5,7 @@
 Car car (Vector2{1500/2, 800/2});
 
 void Startup(){
-    SetTargetFPS(180);
+    SetTargetFPS(60);
     InitWindow(1500, 800, "/C++/ Ai Learns To Drive - By Ivan Velychko");
 }
 
@@ -23,9 +23,10 @@ int main(void){
 
     while (!WindowShouldClose())
     {
-        delta = GetFrameTime();
-        std::cout<<delta<<"\n";
+        delta = 1/60;
         car.Update(delta);
+
+
         Render();
 
     }
