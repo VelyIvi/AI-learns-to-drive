@@ -23,9 +23,8 @@ int main(void){
 
     while (!WindowShouldClose())
     {
-        delta = 1/60;
+        delta = GetFrameTime();
         car.Update(delta);
-
 
         Render();
 
