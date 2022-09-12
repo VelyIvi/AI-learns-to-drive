@@ -26,7 +26,7 @@ void Render(){
     // car.Draw();
 
     simulation.Draw(Vector2{float(GetScreenWidth()*0.03), float(GetScreenHeight()*0.05)}, Vector2{float(GetScreenWidth()), float(GetScreenHeight())}, Vector2{0.7, 0.7});
-
+    DrawFPS(10,10);
     EndDrawing();
 }
 
