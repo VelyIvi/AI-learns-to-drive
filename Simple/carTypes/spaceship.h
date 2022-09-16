@@ -16,8 +16,6 @@ class Car{
         const float friction = 800.0;
         const float turnSpeed = 300.0;
 
-        float speedTurn;
-
     public:
         Car(Vector2 pos){
             position = pos;
