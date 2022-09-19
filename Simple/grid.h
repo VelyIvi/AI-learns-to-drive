@@ -1,4 +1,5 @@
 #include <vector>
+#include <raylib.h>
 
 #include "mousegrid.h"
 
@@ -7,7 +8,7 @@ MouseGrid mouseGrid;
 
 class Grid{
     private:
-        const int gridSize = 25;
+        const int gridSize = 10;
         std::vector<Vector2> DrawGridPoints;
 
     public:
@@ -18,7 +19,6 @@ class Grid{
         void Draw();
         void Draw_Components();
         void AddPoint(Vector2 point);
-        std::vector<Vector2> MapPoints;
 };
 
 Grid::Grid(){
@@ -53,16 +53,16 @@ void Grid::Draw(){
 
 void Grid::Draw_Components(){
     
-    if (mouseGrid.MapPoints.size()>=2){
-        for(int i=0; i<mouseGrid.MapPoints.size()-1; i++){
-            DrawLineV(mouseGrid.MapPoints.at(i), mouseGrid.MapPoints.at(i+1), GREEN);
-        }
-    }
+    // if (mouseGrid.MapPoints.size()>=2){
+    //     for(int i=0; i<mouseGrid.MapPoints.size()-1; i++){
+    //         DrawLineV(mouseGrid.MapPoints.at(i), mouseGrid.MapPoints.at(i+1), GREEN);
+    //     }
+    // }
 
-    if (mouseGrid.MapPoints.size()>0){
-        Vector2 lastPoint = mouseGrid.MapPoints.at(mouseGrid.MapPoints.size()-1);
-        DrawCircle(lastPoint.x, lastPoint.y, 5.0f, GREEN);
-    }
+    // if (mouseGrid.MapPoints.size()>0){
+    //     Vector2 lastPoint = mouseGrid.MapPoints.at(mouseGrid.MapPoints.size()-1);
+    //     DrawCircle(lastPoint.x, lastPoint.y, 3.0f, GREEN);
+    // }
 
     mouseGrid.Draw();
 }

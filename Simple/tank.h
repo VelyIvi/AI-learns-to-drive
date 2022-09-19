@@ -1,4 +1,3 @@
-#include <raylib.h>
 #include "controls.h"
 
 #define PI 3.14159265

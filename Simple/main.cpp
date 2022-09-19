@@ -1,10 +1,16 @@
-#include <raylib.h> //build with "-lraylib"
+#include <raylib.h>
+    //build with "-lraylib"
+//g++ -o main main.cpp -lraylib && ./main
 #include <math.h>
 #include <iostream>
 
 
+#include "map.h"
 #include "tank.h"
 #include "grid.h"
+#include "utils.h"
+
+Map map;
 
 
 Car car (Vector2{1500/2, 800/2});

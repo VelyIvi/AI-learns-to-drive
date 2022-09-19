@@ -66,6 +66,10 @@
         "thread": "cpp",
         "cfenv": "cpp",
         "typeindex": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "any": "cpp",
+        "codecvt": "cpp",
+        "ranges": "cpp",
+        "span": "cpp"
     }
 }
