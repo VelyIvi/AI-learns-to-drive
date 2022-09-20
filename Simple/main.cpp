@@ -14,7 +14,7 @@ Map map;
 
 
 Car car (Vector2{1500/2, 800/2});
-Grid grid;
+Grid grid (map.points);
 
 void Startup(){
     SetTargetFPS(60);

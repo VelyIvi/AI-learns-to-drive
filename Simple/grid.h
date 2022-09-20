@@ -3,16 +3,16 @@
 
 #include "mousegrid.h"
 
-
 MouseGrid mouseGrid;
 
 class Grid{
     private:
         const int gridSize = 10;
         std::vector<Vector2> DrawGridPoints;
+        std::vector<Vector2> MapPoints;
 
     public:
-        Grid();
+        Grid(std::vector<Vector2> nDrawGridPoints);
         ~Grid();
         void Update();
         void Update_Components();
@@ -21,8 +21,11 @@ class Grid{
         void AddPoint(Vector2 point);
 };
 
-Grid::Grid(){
+Grid::Grid(std::vector<Vector2> nDrawGridPoints){
+    MapPoints = nDrawGridPoints;
+    mouseGrid.MapPoints=nDrawGridPoints;
     Update();
+    
 }
 Grid::~Grid(){
 }

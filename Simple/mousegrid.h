@@ -16,7 +16,7 @@ class MouseGrid {
         MouseGrid();
         void Update(int gridSize);
         void Draw();
-        std::vector<Vector2> * MapPoints = &Map.points;
+        std::vector<Vector2> MapPoints;
 };
 
 MouseGrid::~MouseGrid(){
@@ -28,26 +28,26 @@ MouseGrid::MouseGrid(){
 void MouseGrid::Update(int gridSize){
     real_position = GetMousePosition();
     position = {round(real_position.x/gridSize)*gridSize, round(real_position.y/gridSize)*gridSize};
-    int vecSize = MapPoints->size()-1;
+    int vecSize = MapPoints.size()-1;
 
-    if(MapPoints->size() > 0){
-        newestPoint = MapPoints->at(vecSize);
+    if(MapPoints.size() > 0){
+        newestPoint = MapPoints.at(vecSize);
     }
 
     if(IsMouseButtonPressed(0)){
         if (position.x != newestPoint.x || position.y != newestPoint.y){
-            MapPoints->push_back(position);
+            MapPoints.push_back(position);
         }
     } else if(
-        (IsMouseButtonPressed(1)||(IsKeyDown(KEY_LEFT_CONTROL)&&IsKeyPressed(KEY_Z)))&&MapPoints->size()>0){
-        MapPoints->pop_back();
+        (IsMouseButtonPressed(1)||(IsKeyDown(KEY_LEFT_CONTROL)&&IsKeyPressed(KEY_Z)))&&MapPoints.size()>0){
+        MapPoints.pop_back();
         
     }
 
 }
 
 void MouseGrid::Draw(){
-    if(MapPoints->size() > 0){
+    if(MapPoints.size() > 0){
         DrawLineV(newestPoint, position, DARKGREEN);
     }
 
