@@ -7,7 +7,7 @@ MouseGrid mouseGrid;
 
 class Grid{
     private:
-        const int gridSize = 10;
+        const int gridSize = 20;
         std::vector<Vector2> DrawGridPoints;
 
     public:
@@ -61,9 +61,15 @@ void Grid::Draw(){
 void Grid::Draw_Components(){
     
     if (m->map_points.size()>0){
-        for(int i=0; i<m->map_points.size()-1; i++){
-            for(int j=0; j<m->map_points.size()-1; j++){
-                DrawLineV(m->map_points.at(i).at(j), m->map_points.at(i).at(j), GREEN);
+        for(int i=0; i<m->map_points.size(); i++){
+            if (m->map_points.at(i).size()>0){
+                for(int j=0; j<m->map_points.at(i).size()-1; j++){
+                    if(i == mouseGrid.currentVec && *edit == true){
+                        DrawLineV(m->map_points.at(i).at(j), m->map_points.at(i).at(j+1), GREEN);
+                    } else {
+                        DrawLineV(m->map_points.at(i).at(j), m->map_points.at(i).at(j+1), BLUE);
+                    }
+                }
             }
         }
     }

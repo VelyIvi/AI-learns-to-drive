@@ -9,10 +9,11 @@ class MouseGrid {
         Vector2 real_position;
         Vector2 position;
         Vector2 newestPoint;
-        int currentVec = 0;
     public:
         bool* edit;
         Map* m;
+        int currentVec = 0;
+
         ~MouseGrid();
         MouseGrid();
         void Update(int gridSize);
@@ -27,6 +28,24 @@ MouseGrid::MouseGrid(){
 
 void MouseGrid::Update(int gridSize){
     real_position = GetMousePosition();
+    if(IsKeyPressed(KEY_L)){
+        currentVec++;
+    }
+    if(IsKeyPressed(KEY_J)){
+        currentVec--;
+    }
+    
+    if(currentVec<0){
+            currentVec = m->map_points.size()-1;
+    }
+    if(currentVec>m->map_points.size()-1){
+        currentVec = 0;
+    }
+
+    if (IsKeyPressed(KEY_K)){
+        m->map_points.push_back({});
+    }
+
     if (IsKeyPressed(KEY_E)){
         if (*edit == true){
             *edit = false;
@@ -39,11 +58,21 @@ void MouseGrid::Update(int gridSize){
     }
 
     position = {round(real_position.x/gridSize)*gridSize, round(real_position.y/gridSize)*gridSize};
-    int vecSize = m->map_points.at(currentVec).size()-1;
 
-    if(m->map_points.size() > 0){
-        newestPoint = m->map_points.at(currentVec).at(vecSize);
+    if(m->map_points.size() < 1){
+        return;
     }
+    if (m->map_points.at(currentVec).size() < 1){
+        if(IsMouseButtonPressed(0)){
+            m->map_points.at(currentVec).push_back(position);
+            int vecSize = m->map_points.at(currentVec).size()-1;
+            newestPoint = m->map_points.at(currentVec).at(vecSize);
+            return;
+        }
+        return;
+    }
+    int vecSize = m->map_points.at(currentVec).size()-1;
+    newestPoint = m->map_points.at(currentVec).at(vecSize);
 
     if(IsMouseButtonPressed(0)){
         if (position.x != newestPoint.x || position.y != newestPoint.y){
@@ -51,8 +80,10 @@ void MouseGrid::Update(int gridSize){
         }
     } else if(
         (IsMouseButtonPressed(1)||(IsKeyDown(KEY_LEFT_CONTROL)&&IsKeyPressed(KEY_Z)))&&m->map_points.at(currentVec).size()>0){
-        m->map_points.at(currentVec).pop_back();
-        
+        if (m->map_points.at(currentVec).size()<=1){
+            m->map_points.erase(m->map_points.begin()+currentVec);
+        }
+        m->map_points.at(currentVec).pop_back(); 
     }
 
 }
@@ -62,11 +93,12 @@ void MouseGrid::Draw(){
     if (*edit==false){
         return;
     }
+    if (m->map_points.size()<=0){
+        return;
+    }
     if(m->map_points.at(currentVec).size() > 0){
         DrawLineV(newestPoint, position, DARKGREEN);
         DrawCircle(newestPoint.x, newestPoint.y, 3.0f, GREEN);
-
     }
     DrawCircle(position.x, position.y, 3, YELLOW);
-
 }
