@@ -8,7 +8,7 @@ struct Map{
     private:
         // string name = "NoName";
     public:
-        std::vector<std::vector<Vector2>> map_points = {};
+        std::vector<std::vector<Vector2>>* map_points = new std::vector<std::vector<Vector2>>;
         Map();
         ~Map();
 

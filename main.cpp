@@ -16,11 +16,11 @@ Map* map = new Map;
 
 
 Car car (Vector2{1500/2, 800/2});
-Grid grid (map);
+Grid grid (map->map_points);
 
 void Startup(){
     SetTargetFPS(60);
-    // SetConfigFlags(FLAG_MSAA_4X_HINT);
+
     InitWindow(1500, 800, "/C++/ Ai Learns To Drive - By Ivan Velychko");
     HideCursor();
     grid.Update();

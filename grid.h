@@ -9,8 +9,9 @@ class Grid{
 
     public:
         bool* edit = new bool(false);
-        Map* m;
-        Grid(Map* map);
+
+        std::vector<std::vector<Vector2>>* map;
+        Grid(std::vector<std::vector<Vector2>>* m);
         ~Grid();
         void Update();
         void Update_Components();
@@ -19,9 +20,9 @@ class Grid{
         void AddPoint(Vector2 point);
 };
 
-Grid::Grid(Map* map){
-    m = map;
-    mouseGrid.m  = map;
+Grid::Grid(std::vector<std::vector<Vector2>>* m){
+    map = m;
+    mouseGrid.map  = m;
     mouseGrid.edit = edit;
     Update();
     
@@ -57,14 +58,16 @@ void Grid::Draw(){
 
 void Grid::Draw_Components(){
     
-    if (m->map_points.size()>0){
-        for(int i=0; i<m->map_points.size(); i++){
-            if (m->map_points.at(i).size()>0){
-                for(int j=0; j<m->map_points.at(i).size()-1; j++){
+    if (map->size()>0){
+        for(int i=0; i<map->size(); i++){
+            if (map->at(i).size()>0){
+                for(int j=0; j<map->at(i).size()-1; j++){
                     if(i == mouseGrid.currentVec && *edit == true){
-                        DrawLineV(m->map_points.at(i).at(j), m->map_points.at(i).at(j+1), GREEN);
+                        DrawLineV(map->at(i).at(j), map->at(i).at(j+1), GREEN);
+                        DrawCircle(map->at(i).at(j).x, map->at(i).at(j).y, 2, GREEN);
                     } else {
-                        DrawLineV(m->map_points.at(i).at(j), m->map_points.at(i).at(j+1), BLUE);
+                        DrawLineV(map->at(i).at(j), map->at(i).at(j+1), BLUE);
+                        DrawCircle(map->at(i).at(j).x, map->at(i).at(j).y, 2, BLUE);
                     }
                 }
             }
