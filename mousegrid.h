@@ -20,6 +20,7 @@ MouseGrid::~MouseGrid(){
 }
 
 MouseGrid::MouseGrid(){
+    HideCursor();
 }
 
 void MouseGrid::Update(int gridSize){

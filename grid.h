@@ -65,9 +65,6 @@ void Grid::Draw_Components(){
                     if(i == mouseGrid.currentVec && *edit == true){
                         DrawLineV(map->at(i).at(j), map->at(i).at(j+1), GREEN);
                         DrawCircle(map->at(i).at(j).x, map->at(i).at(j).y, 2, GREEN);
-                    } else {
-                        DrawLineV(map->at(i).at(j), map->at(i).at(j+1), BLUE);
-                        DrawCircle(map->at(i).at(j).x, map->at(i).at(j).y, 2, BLUE);
                     }
                 }
             }

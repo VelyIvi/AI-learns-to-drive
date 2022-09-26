@@ -21,7 +21,6 @@ void Startup(){
     SetTargetFPS(60);
 
     InitWindow(1500, 800, "/C++/ Ai Learns To Drive - By Ivan Velychko");
-    HideCursor();
     grid.Update();
 }
 
@@ -30,6 +29,7 @@ void Render(){
     ClearBackground(BLACK);
     grid.Draw();
     car.Draw();
+    map->Draw();
     grid.Draw_Components();
     DrawFPS(10,10);
     EndDrawing();
