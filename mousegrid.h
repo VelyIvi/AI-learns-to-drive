@@ -24,21 +24,22 @@ MouseGrid::MouseGrid(){
 
 void MouseGrid::Update(int gridSize){
     real_position = GetMousePosition();
-    if(IsKeyPressed(KEY_L)){
-        currentVec++;
-    }
-    if(IsKeyPressed(KEY_J)){
-        currentVec--;
+    if(map->size()>1){
+        if(IsKeyPressed(KEY_L)){
+            currentVec++;
+        }
+        if(IsKeyPressed(KEY_J)){
+            currentVec--;
+        }
     }
     
-    if(currentVec<0){
-            currentVec = map->size()-1;
-    }
     if(currentVec>map->size()-1){
         currentVec = 0;
     }
-
-
+    if(currentVec<0){
+            currentVec = map->size()-1;
+    }
+    
     if (IsKeyPressed(KEY_E)){
         if (*edit == true){
             *edit = false;
