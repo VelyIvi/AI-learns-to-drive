@@ -3,7 +3,6 @@
 //g++ -o main main.cpp -lraylib && ./main
 #include <math.h>
 #include <vector>
-#include <string>
 #include <iostream>
 
 
@@ -44,6 +43,9 @@ int main(void){
     {
         delta = GetFrameTime();
         car.Update(delta);
+        if (IsKeyPressed(KEY_A)){
+            map->Save_To_Json();
+        }
         grid.Update_Components();
         Render();
 
