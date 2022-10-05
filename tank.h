@@ -1,46 +1,53 @@
 #include "controls.h"
+#include "sensor.h"
+
 
 #define PI 3.14159265
+
+Controls controls;
+
+Sensor sensor;
 
 
 class Car{
     private:
         const Vector2 size = {30,18};
-        Vector2 position;
-        float angle;
+        Vector2* position = new Vector2;
+        float* angle = new float;
 
         float speed = 0;
-        const float accel = 1200.0; //accelaration > friction
-        const float max_speed = 500.0;
-        const float friction = 550.0;
-        const float turnSpeed = 300.0;
+        const float accel = 500.0; //accelaration > friction
+        const float max_speed = 300.0;
+        const float friction = 200.0;
+        const float turnSpeed = 150.0;
 
     public:
-        Car(Vector2 pos){
-            position = pos;
+        Car(Vector2 pos, float rot){
+            *position = pos;
+            *angle = rot;
+            sensor.angle = angle;
+            sensor.position = position;
         }
         Rectangle getRec(){
-            return Rectangle{position.x, position.y, size.x, size.y};
+            return Rectangle{position->x, position->y, size.x, size.y};
         }
-
-        void Draw(){
-            DrawRectanglePro(getRec(), Vector2{size.x/2, size.y/2}, angle, WHITE);
-        }
-
+        void Draw();
         void Update(float delta);
 };
 
-Controls controls;
-
+void Car::Draw(){
+    DrawRectanglePro(getRec(), Vector2{size.x/2, size.y/2}, *angle, CarColor);
+    sensor.Draw();
+}
 
 void Car::Update(float delta){
     controls.Update();
 
     if(controls.left == true){
-        angle-=turnSpeed*delta;
+        *angle-=turnSpeed*delta;
     }
     if(controls.right == true){
-        angle+=turnSpeed*delta;
+        *angle+=turnSpeed*delta;
     }
     if (controls.forward == true){
         speed+=accel*delta;
@@ -68,17 +75,8 @@ void Car::Update(float delta){
         speed = -max_speed/2;
     }
 
-    position.y-=sin(-angle*PI/180.0)*speed*delta;
-    position.x-=cos(-angle*PI/180.0)*-speed*delta;
-    
-    // if (position.x>1500){
-    //     position.x -= 1500;
-    // } else if (position.x<0){
-    //     position.x += 1500;
-    // }
-    // if (position.y>800){
-    //     position.y -= 800;
-    // } else if (position.y<0){
-    //     position.y += 800;
-    // }
+    position->y-=sin(-(*angle)*PI/180.0)*speed*delta;
+    position->x-=cos(-(*angle)*PI/180.0)*-speed*delta;
+
+    sensor.Update();
 }

@@ -1,6 +1,4 @@
-#include "raylib.h"
-    //build with "-lraylib"
-//g++ -o main main.cpp -lraylib && ./main
+#include <raylib.h>
 #include <math.h>
 #include <vector>
 #include <iostream>
@@ -9,29 +7,35 @@
 #include "map.h"
 #include "tank.h"
 #include "grid.h"
-#include "utils.h"
+#include "pallete.h"
 
 Map* map = new Map;
 
 
-Car car (Vector2{1500/2, 800/2});
-Grid grid (map->map_points);
+Car car (map->startPos, map->startRot);
+Grid grid (map->map_points, map->map_check);
+
+
+const bool GridEnabled = true;
+const bool EditEnabled = true;
 
 void Startup(){
     SetTargetFPS(60);
 
     InitWindow(1500, 800, "/C++/ Ai Learns To Drive - By Ivan Velychko");
-    grid.Update();
+    if(GridEnabled){grid.Update();}
 }
 
 void Render(){
     BeginDrawing();
-    ClearBackground(BLACK);
-    grid.Draw();
-    car.Draw();
+    ClearBackground(BackGroundColor);
+    if(GridEnabled){grid.Draw();}
+    
     map->Draw();
-    grid.Draw_Components();
-    DrawFPS(10,10);
+    car.Draw();
+
+    if(EditEnabled){grid.Draw_Components();}
+    DrawText(TextFormat("%i", GetFPS()), 10, 10, 20, GREEN);
     EndDrawing();
 }
 
@@ -42,11 +46,9 @@ int main(void){
     while (!WindowShouldClose())
     {
         delta = GetFrameTime();
-        car.Update(delta);
-        if (IsKeyPressed(KEY_A)){
-            map->Save_To_Json();
-        }
-        grid.Update_Components();
+        car.Update(float(delta));
+        
+        if(EditEnabled){grid.Update_Components();}
         Render();
 
     }
