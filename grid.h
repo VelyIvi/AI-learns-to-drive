@@ -17,7 +17,7 @@ class Grid{
         float startRot= 0;
 
 
-        Grid(std::vector<std::vector<Vector2>>* m, std::vector<Vector4>* c);
+        Grid(std::vector<std::vector<Vector2>>* w, std::vector<Vector4>* c);
         ~Grid();
         void Update();
         void Update_Components();
@@ -25,11 +25,12 @@ class Grid{
         void Draw_Components();
 };
 
-Grid::Grid(std::vector<std::vector<Vector2>>* m, std::vector<Vector4>* c){
-    map = m;
+Grid::Grid(std::vector<std::vector<Vector2>>* w, std::vector<Vector4>* c){
+    map = w;
     check = c;
-    mouseGrid.map  = m;
+    mouseGrid.wall  = w;
     mouseGrid.check  = c;
+    // mouseGrid.map = m;
 
     mouseGrid.edit = edit;
     Update();
@@ -38,6 +39,13 @@ Grid::Grid(std::vector<std::vector<Vector2>>* m, std::vector<Vector4>* c){
 
 
 Grid::~Grid(){
+    // mouseGrid.~MouseGrid();
+
+
+    // delete edit;
+    // edit = NULL;
+
+
 }
 
 void Grid::Update(){
@@ -65,7 +73,6 @@ void Grid::Draw(){
 }
 
 void Grid::Draw_Components(){
-
     mouseGrid.Draw();
 }
 

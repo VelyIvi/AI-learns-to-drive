@@ -33,6 +33,11 @@ Map::Map(){
 }
 
 Map::~Map(){
+    delete map_points;
+    map_points = NULL;
+
+    delete map_check;
+    map_check = NULL;
 
 }
 

@@ -13,7 +13,7 @@ class MouseGrid {
 
     public:
         bool* edit;
-        std::vector<std::vector<Vector2>>* map;
+        std::vector<std::vector<Vector2>>* wall;
         std::vector<Vector4>* check;
 
 
@@ -69,76 +69,76 @@ void MouseGrid::Update(int gridSize){
     }
 
     if (currentType == "WALL"){
-        if(map->size()>1){
+        if(wall->size()>1){
             if(IsKeyPressed(KEY_L)){
                 currentVecWall++;
-                if(currentVecWall>map->size()-1){
+                if(currentVecWall>wall->size()-1){
                     currentVecWall = 0;
                 }
             }
             if(IsKeyPressed(KEY_J)){
                 currentVecWall--;
                 if(currentVecWall<0){
-                    currentVecWall = map->size()-1;
+                    currentVecWall = wall->size()-1;
                 }
             }
         }
         
-        if(currentVecWall>map->size()-1){
+        if(currentVecWall>wall->size()-1){
             currentVecWall = 0;
         }
         if(currentVecWall<0){
-                currentVecWall = map->size()-1;
+                currentVecWall = wall->size()-1;
         }
         
 
         if (IsKeyPressed(KEY_K)){
-            if (map->size()>0){
-                for(int h = 0 ; h<=map->size()-1; h++){
-                    if (map->at(h).size()==0){
+            if (wall->size()>0){
+                for(int h = 0 ; h<=wall->size()-1; h++){
+                    if (wall->at(h).size()==0){
                         currentVecWall = h;
                         return;
                     }
                 }
             }
 
-            map->push_back({});
-            if (map->size()>1){
-                currentVecWall = map->size()-1;
+            wall->push_back({});
+            if (wall->size()>1){
+                currentVecWall = wall->size()-1;
             }
         }
 
         position = {round(real_position.x/gridSize)*gridSize, round(real_position.y/gridSize)*gridSize};
-        if(map->size() < 1){
+        if(wall->size() < 1){
             return;
         }
 
-        if (map->at(currentVecWall).size() < 1){
+        if (wall->at(currentVecWall).size() < 1){
             if(IsMouseButtonPressed(0)){
-                map->at(currentVecWall).push_back(position);
-                int vecSize = map->at(currentVecWall).size()-1;
-                newestPoint = map->at(currentVecWall).at(vecSize);
+                wall->at(currentVecWall).push_back(position);
+                int vecSize = wall->at(currentVecWall).size()-1;
+                newestPoint = wall->at(currentVecWall).at(vecSize);
             }
             else if(IsMouseButtonPressed(1)){
-                map->erase(map->begin() + currentVecWall);
+                wall->erase(wall->begin() + currentVecWall);
                 if(currentVecWall<0){
-                    currentVecWall = map->size()-1+0;
+                    currentVecWall = wall->size()-1+0;
                 }
-                if(currentVecWall>map->size()-1){
+                if(currentVecWall>wall->size()-1){
                     currentVecWall = 0;
                 }
             }
         return;
         }
-        int vecSize = map->at(currentVecWall).size()-1;
-        newestPoint = map->at(currentVecWall).at(vecSize);
+        int vecSize = wall->at(currentVecWall).size()-1;
+        newestPoint = wall->at(currentVecWall).at(vecSize);
 
         if(IsMouseButtonPressed(0)){
             if (position.x != newestPoint.x || position.y != newestPoint.y){
-                map->at(currentVecWall).push_back(position);
+                wall->at(currentVecWall).push_back(position);
             }
         } else if(IsMouseButtonPressed(1)){        
-            map->at(currentVecWall).pop_back(); 
+            wall->at(currentVecWall).pop_back(); 
         }
     } else if(currentType == "CHECK"){
         
@@ -161,23 +161,23 @@ void MouseGrid::Draw(){
     DrawCircle(real_position.x, real_position.y, 3, MAROON);
 
     if (currentType == "WALL"){
-        if (map->size()>0){
-            for(int i=0; i<map->size(); i++){
-                if (map->at(i).size()>0){
-                    for(int j=0; j<map->at(i).size()-1; j++){
+        if (wall->size()>0){
+            for(int i=0; i<wall->size(); i++){
+                if (wall->at(i).size()>0){
+                    for(int j=0; j<wall->at(i).size()-1; j++){
                         if(i == currentVecWall && *edit == true){
-                            DrawLineV(map->at(i).at(j), map->at(i).at(j+1), GREEN);
-                            DrawCircle(map->at(i).at(j).x, map->at(i).at(j).y, 2, GREEN);
+                            DrawLineV(wall->at(i).at(j), wall->at(i).at(j+1), GREEN);
+                            DrawCircle(wall->at(i).at(j).x, wall->at(i).at(j).y, 2, GREEN);
                         }
                     }
                 }
             }
         }
 
-        if (map->size()<=0){
+        if (wall->size()<=0){
             return;
         }
-        if(map->at(currentVecWall).size() > 0){
+        if(wall->at(currentVecWall).size() > 0){
             DrawLineV(newestPoint, position, DARKGREEN);
             DrawCircle(newestPoint.x, newestPoint.y, 3.0f, GREEN);
         }

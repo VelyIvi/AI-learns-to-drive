@@ -9,15 +9,16 @@
 #include "grid.h"
 #include "pallete.h"
 
-Map* map = new Map;
+Map map;
 
 
-Car car (map->startPos, map->startRot);
-Grid grid (map->map_points, map->map_check);
+Car car (map.startPos, map.startRot);
+// std::cout>>map.startPos>>"\n";
+Grid grid (map.map_points, map.map_check);
 
 
 const bool GridEnabled = true;
-const bool EditEnabled = true;
+const bool EditEnabled = false;
 
 void Startup(){
     SetTargetFPS(60);
@@ -31,7 +32,7 @@ void Render(){
     ClearBackground(BackGroundColor);
     if(GridEnabled){grid.Draw();}
     
-    map->Draw();
+    map.Draw();
     car.Draw();
 
     if(EditEnabled){grid.Draw_Components();}
@@ -39,18 +40,29 @@ void Render(){
     EndDrawing();
 }
 
-int main(void){
+int main(){
     Startup();
     float delta;
 
     while (!WindowShouldClose())
     {
         delta = GetFrameTime();
-        car.Update(float(delta));
-        
+        car.Update(float(1.0/60.0));
+
         if(EditEnabled){grid.Update_Components();}
         Render();
 
     }
+
+    // grid.~Grid();
+
+    car.~Car();
+
+
+    // map.~Map();
+    // delete map;
+    // map = NULL;
+
+
     return 0;
 }

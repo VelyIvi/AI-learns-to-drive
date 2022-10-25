@@ -23,11 +23,26 @@ class Car{
 
     public:
         Car(Vector2 pos, float rot){
-            *position = pos;
+            std::cout<<pos.x<<" "<<pos.y<<"\n";
+            position->x = pos.x;
+            position->y = pos.y;
+
             *angle = rot;
-            sensor.angle = angle;
+
+
             sensor.position = position;
+            sensor.angle = angle;
         }
+
+        ~Car(){
+            // std::cout<<&position<<"  "<<position->x<<"  "<<&sensor.position<<"\n";
+            sensor.~Sensor();
+            // delete position;
+            // delete angle;
+            // position = NULL;
+            // angle = NULL;
+        }
+
         Rectangle getRec(){
             return Rectangle{position->x, position->y, size.x, size.y};
         }
@@ -36,6 +51,7 @@ class Car{
 };
 
 void Car::Draw(){
+
     DrawRectanglePro(getRec(), Vector2{size.x/2, size.y/2}, *angle, CarColor);
     sensor.Draw();
 }

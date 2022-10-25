@@ -23,7 +23,8 @@ class Sensor{
 
 };
 Sensor::~Sensor(){
-    
+    // angle = NULL;
+    // position = NULL;
 }
 Sensor::Sensor(){
 

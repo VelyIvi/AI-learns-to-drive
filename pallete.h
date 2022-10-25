@@ -4,6 +4,7 @@
 #define CarDeadColor (Color) {91, 188, 252, 255}
 
 #define RaycastColor (Color) {217, 65, 212, 255}
+#define RaycastShadeColor (Color) {200,200,200,255}
 
 #define WallColor (Color) {204, 16, 126, 255}
 
