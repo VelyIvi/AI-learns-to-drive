@@ -11,7 +11,6 @@
 Map map;
 
 Car car (map.startPos, map.startRot);
-// std::cout>>map.startPos>>"\n";
 Grid grid (map.map_points, map.map_check);
 
 
