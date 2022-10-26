@@ -1,6 +1,6 @@
 #include "utils.h"
 
-class Sensor{
+class Sensor {
     private:
         int rayLength = 200;
         float rayCount = 7;
@@ -15,27 +15,30 @@ class Sensor{
         float* angle;
         Vector2* position;
 
-        Sensor();
-        ~Sensor();
+        Sensor ();
+        ~Sensor ();
 
         void Update();
         void Draw();
 
 };
-Sensor::~Sensor(){
-    // angle = NULL;
-    // position = NULL;
-}
-Sensor::Sensor(){
+
+Sensor ::Sensor (){
 
 }
 
-void Sensor::Update(){
+Sensor ::~Sensor (){
+    std::cout<<"Called Sensor destructor"<<"\n";
+    angle = NULL;
+    position = NULL;
+}
+
+void Sensor ::Update(){
     CastRays();
 }
 
 
-void Sensor::CastRays(){
+void Sensor ::CastRays(){
     rays.clear();
     for(int i=0; i<rayCount; i++){
         Vector2 startPos = {position->x, position->y};
@@ -46,11 +49,11 @@ void Sensor::CastRays(){
     }
 }
 
-void Sensor::GetReading(){
+void Sensor ::GetReading(){
 
 }
 
-void Sensor::Draw(){
+void Sensor ::Draw(){
     for (int x = 0; x < rayCount; x++){
         DrawLineEx({rays.at(x).x, rays.at(x).y}, {rays.at(x).z, rays.at(x).w}, 1, RaycastColor);
     }

@@ -1,2 +1,2 @@
 default:
-	g++ ../main.cpp -o main -O2 -ggdb3 -Wno-missing-braces -lraylib
+	g++ ../main.cpp -o main -ggdb3 -lraylib

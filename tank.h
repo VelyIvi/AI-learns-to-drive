@@ -35,12 +35,11 @@ class Car{
         }
 
         ~Car(){
-            // std::cout<<&position<<"  "<<position->x<<"  "<<&sensor.position<<"\n";
-            sensor.~Sensor();
-            // delete position;
-            // delete angle;
-            // position = NULL;
-            // angle = NULL;
+            std::cout<<"Called car destructor\n";
+            delete position;
+            delete angle;
+            position = NULL;
+            angle = NULL;
         }
 
         Rectangle getRec(){

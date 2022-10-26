@@ -21,7 +21,7 @@ class MouseGrid {
         std::string currentType = "WALL";
 
         ~MouseGrid();
-        MouseGrid();
+        MouseGrid(std::vector<std::vector<Vector2>>* w, std::vector<Vector4>* c);
         void Update(int gridSize);
         void Draw();
 };
@@ -30,7 +30,9 @@ MouseGrid::~MouseGrid(){
     std::cout<<"Called MouseEdit destructor\n";
 }
 
-MouseGrid::MouseGrid(){
+MouseGrid::MouseGrid(std::vector<std::vector<Vector2>>* w, std::vector<Vector4>* c){
+    wall = w;
+    check = c;
 
 }
 

@@ -33,6 +33,8 @@ Map::Map(){
 }
 
 Map::~Map(){
+    std::cout<<"Called Map destructor\n";
+
     delete map_points;
     map_points = NULL;
 

@@ -1,6 +1,6 @@
 #include "mousegrid.h"
 
-MouseGrid mouseGrid;
+MouseGrid mouseGrid (map.map_points, map.map_check);
 
 class Grid{
     private:
@@ -28,10 +28,6 @@ class Grid{
 Grid::Grid(std::vector<std::vector<Vector2>>* w, std::vector<Vector4>* c){
     map = w;
     check = c;
-    mouseGrid.wall  = w;
-    mouseGrid.check  = c;
-    // mouseGrid.map = m;
-
     mouseGrid.edit = edit;
     Update();
     

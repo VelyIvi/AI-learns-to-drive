@@ -39,4 +39,5 @@ Controls::Controls() {
 }
 
 Controls::~Controls() {
+    std::cout<<"Called Controls destructor\n";
 }

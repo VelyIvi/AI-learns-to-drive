@@ -3,7 +3,6 @@
 #include <vector>
 #include <iostream>
 
-
 #include "map.h"
 #include "tank.h"
 #include "grid.h"
@@ -11,13 +10,12 @@
 
 Map map;
 
-
 Car car (map.startPos, map.startRot);
 // std::cout>>map.startPos>>"\n";
 Grid grid (map.map_points, map.map_check);
 
 
-const bool GridEnabled = true;
+const bool GridEnabled = false;
 const bool EditEnabled = false;
 
 void Startup(){
@@ -54,15 +52,8 @@ int main(){
 
     }
 
-    // grid.~Grid();
-
-    car.~Car();
-
-
-    // map.~Map();
     // delete map;
     // map = NULL;
-
-
+    std::cout<<"Main code finished\n";
     return 0;
 }
