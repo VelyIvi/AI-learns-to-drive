@@ -8,11 +8,10 @@
 #include "grid.h"
 #include "pallete.h"
 
-Map map;
+Map* map = new Map();
 
-Car car (map.startPos, map.startRot);
-Grid grid (map.map_points, map.map_check);
-
+Car car (map->startPos, map->startRot, map->map_points);
+Grid grid (map->map_points, map->map_check);
 
 const bool GridEnabled = false;
 const bool EditEnabled = false;
@@ -29,7 +28,7 @@ void Render(){
     ClearBackground(BackGroundColor);
     if(GridEnabled){grid.Draw();}
     
-    map.Draw();
+    map->Draw();
     car.Draw();
 
     if(EditEnabled){grid.Draw_Components();}
@@ -40,19 +39,21 @@ void Render(){
 int main(){
     Startup();
     float delta;
+    car.Update(float(1.0/60.0));
 
     while (!WindowShouldClose())
     {
         delta = GetFrameTime();
+
         car.Update(float(1.0/60.0));
 
         if(EditEnabled){grid.Update_Components();}
         Render();
-
     }
 
-    // delete map;
-    // map = NULL;
+    delete map;
+    map = NULL;
     std::cout<<"Main code finished\n";
+
     return 0;
 }

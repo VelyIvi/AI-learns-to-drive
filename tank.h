@@ -22,14 +22,14 @@ class Car{
         const float turnSpeed = 150.0;
 
     public:
-        Car(Vector2 pos, float rot){
+        Car(Vector2 pos, float rot, std::vector<std::vector<Vector2>>* wall){
             std::cout<<pos.x<<" "<<pos.y<<"\n";
             position->x = pos.x;
             position->y = pos.y;
 
             *angle = rot;
-
-
+            
+            sensor.wall = wall;
             sensor.position = position;
             sensor.angle = angle;
         }

@@ -1,0 +1,3 @@
+/home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/cmake-build-debug/CMakeFiles/AI_learns_to_drive.dir
+/home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/cmake-build-debug/CMakeFiles/rebuild_cache.dir
