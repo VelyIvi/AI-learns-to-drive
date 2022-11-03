@@ -13,8 +13,8 @@ Map* map = new Map();
 Car car (map->startPos, map->startRot, map->map_points);
 Grid grid (map->map_points, map->map_check);
 
-const bool GridEnabled = false;
-const bool EditEnabled = false;
+const bool GridEnabled = true;
+const bool EditEnabled = true;
 
 void Startup(){
     SetTargetFPS(60);
@@ -28,7 +28,7 @@ void Render(){
     ClearBackground(BackGroundColor);
     if(GridEnabled){grid.Draw();}
     
-    map->Draw();
+    // map->Draw();
     car.Draw();
 
     if(EditEnabled){grid.Draw_Components();}
@@ -49,6 +49,9 @@ int main(){
 
         if(EditEnabled){grid.Update_Components();}
         Render();
+        if(IsKeyDown(KEY_A)){
+            map->Save_To_Json();
+        }
     }
 
     delete map;

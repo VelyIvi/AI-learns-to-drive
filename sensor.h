@@ -3,8 +3,8 @@
 class Sensor {
     private:
         int rayLength = 200;
-        float rayCount = 2;
-        float raySpread = 0; //in degrees
+        float rayCount = 7;
+        float raySpread = 180+90; //in degrees
 
         std::vector<Vector4> rays;
         void GetReading();
@@ -59,8 +59,8 @@ void Sensor ::Draw(){
         for(int e = 0; e<wall->size(); e++){
             for(int e2 = 0; e2<wall->at(e).size()-1; e2++){
                 Vector2 p = getIntersection({rays.at(x).x, rays.at(x).y}, {rays.at(x).z, rays.at(x).w}, wall->at(e).at(e2), wall->at(e).at(e2+1));
-                // DrawLineEx({rays.at(x).x, rays.at(x).y}, {rays.at(x).z, rays.at(x).w}, 1, RED);
-                DrawCircleV(p, 2, BLUE);
+                DrawLineEx({rays.at(x).x, rays.at(x).y}, {rays.at(x).z, rays.at(x).w}, 1, RED);
+                DrawCircleV(p, 5, BLUE);
             }
         }
     }

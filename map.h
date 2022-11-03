@@ -11,7 +11,7 @@ using json = nlohmann::json;
 
 struct Map{
     private:
-        std::string name = "Test";
+        std::string name = "map";
     public:
         std::vector<std::vector<Vector2>>* map_points = new std::vector<std::vector<Vector2>>;
         std::vector<Vector4>* map_check = new std::vector<Vector4>;
@@ -89,10 +89,10 @@ void Map::Save_To_Json(){
         }
     }
 
-    for (int r = 0; r < map_check->size(); r++) {
-        auto& outer = lines["check"];
-        outer[r].push_back({map_check->at(r).x, map_check->at(r).y, map_check->at(r).z, map_check->at(r).w});
-    }
+    // for (int r = 0; r < map_check->size(); r++) {
+    //     auto& outer = lines["check"];
+    //     outer[r].push_back({map_check->at(r).x, map_check->at(r).y, map_check->at(r).z, map_check->at(r).w});
+    // }
 
     lines["posX"] = startPos.x;
     lines["posY"] = startPos.y;
@@ -109,11 +109,11 @@ void Map::Load_From_Json(){
     map_points->clear();
     map_check->clear();
 
-    std::ifstream file("Test.json");
+    std::ifstream file("map.json");
 
     json j = json::parse(file);
     
-    // for (int i = 0; i < j[wall]->size(); i++) {
+    // for (int i = 0; i < lines[wall]->size(); i++) {
     //     // auto& outer = lines["wall"];
     //     // for (int j = 0; j < map_points->at(i).size(); j++) {
     //     //     outer[i].push_back({map_points->at(i).at(j).x, map_points->at(i).at(j).y});
