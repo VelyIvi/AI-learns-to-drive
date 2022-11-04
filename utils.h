@@ -13,7 +13,7 @@ float lerp(float A, float B, float t){
     return ret;
 }
 
-Vector2 getIntersection(Vector2 point1_1, Vector2 point1_2, Vector2 point2_1, Vector2 point2_2){
+Vector3 getIntersection(Vector2 point1_1, Vector2 point1_2, Vector2 point2_1, Vector2 point2_2, float maxLength){
     const float x1 = point1_1.x;
     const float y1 = point1_1.y;
     const float x2 = point1_2.x;
@@ -37,8 +37,9 @@ Vector2 getIntersection(Vector2 point1_1, Vector2 point1_2, Vector2 point2_1, Ve
 
     if (t>0 && t<1 && u>0 && u<1){ //to have unlimited length remove t<1 //for some reason i have to remove t<1 instead if u<1 have no idea why won't fix
         Vector2 retX = {(x3+u*(x4-x3)), (y3+u*(y4-y3))};
-        return retX;
+        float length = sqrt(pow(retX.x-x1, 2) + pow(retX.y-y1, 2));
+        return {retX.x, retX.y, length};
     } else {
-        return {x2, y2};
+        return {x2, y2, maxLength};
     }
 }

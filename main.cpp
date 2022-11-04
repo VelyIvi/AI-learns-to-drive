@@ -28,7 +28,7 @@ void Render(){
     ClearBackground(BackGroundColor);
     if(GridEnabled){grid.Draw();}
     
-    // map->Draw();
+    map->Draw();
     car.Draw();
 
     if(EditEnabled){grid.Draw_Components();}

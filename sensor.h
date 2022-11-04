@@ -2,9 +2,9 @@
 
 class Sensor {
     private:
-        int rayLength = 200;
-        float rayCount = 7;
-        float raySpread = 180+90; //in degrees
+        const int rayLength = 200;
+        const float rayCount = 7;
+        const float raySpread = 180+90+90/2; //in degrees
 
         std::vector<Vector4> rays;
         void GetReading();
@@ -56,12 +56,22 @@ void Sensor ::GetReading(){
 
 void Sensor ::Draw(){
     for (int x = 0; x < rayCount; x++){
+        std::vector<Vector3> hit;
         for(int e = 0; e<wall->size(); e++){
             for(int e2 = 0; e2<wall->at(e).size()-1; e2++){
-                Vector2 p = getIntersection({rays.at(x).x, rays.at(x).y}, {rays.at(x).z, rays.at(x).w}, wall->at(e).at(e2), wall->at(e).at(e2+1));
-                DrawLineEx({rays.at(x).x, rays.at(x).y}, {rays.at(x).z, rays.at(x).w}, 1, RED);
-                DrawCircleV(p, 5, BLUE);
+                Vector3 p = getIntersection({rays.at(x).x, rays.at(x).y}, {rays.at(x).z, rays.at(x).w}, wall->at(e).at(e2), wall->at(e).at(e2+1), rayLength);
+                hit.push_back(p);
             }
         }
+        Vector3 currentClosest;
+        for(int f = 0; f < hit.size(); f++){
+            if(hit.at(f).z < currentClosest.z){
+                currentClosest = hit.at(f);
+            }
+        }
+        std::cout<<currentClosest.z<<"\n";
+
+        DrawCircle(currentClosest.x, currentClosest.y, 5, RED);
     }
+    
 }
