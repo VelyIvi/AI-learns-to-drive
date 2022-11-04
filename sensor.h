@@ -2,9 +2,9 @@
 
 class Sensor {
     private:
-        const int rayLength = 200;
+        const int rayLength = 300;
         const float rayCount = 7;
-        const float raySpread = 180+90+90/2; //in degrees
+        const float raySpread = 180+90; //in degrees
 
         std::vector<Vector4> rays;
         void GetReading();
@@ -70,8 +70,8 @@ void Sensor ::Draw(){
             }
         }
         std::cout<<currentClosest.z<<"\n";
-
-        DrawCircle(currentClosest.x, currentClosest.y, 5, RED);
+        DrawLine(position->x, position->y, currentClosest.x, currentClosest.y, RaycastColor);
+        DrawCircle(currentClosest.x, currentClosest.y, 5, RaycastColor);
     }
     
 }

@@ -28,8 +28,7 @@ Vector3 getIntersection(Vector2 point1_1, Vector2 point1_2, Vector2 point2_1, Ve
 
     const float den = (x1-x2)*(y3-y4)-(y1-y2)*(x3-x4);
     if (den == 0){
-        std::cout<<"den: "<<den<<"\n";
-        return {0, 0};
+        return {x2, y2, maxLength};
     }
 
     const float t = ((x1-x3)*(y3-y4)-(y1-y3)*(x3-x4))/den;
