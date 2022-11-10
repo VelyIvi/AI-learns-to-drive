@@ -11,9 +11,7 @@ Sensor sensor;
 
 class Car{
     private:
-        const Vector2 size = {30,18};
-        Vector2* position = new Vector2;
-        float* angle = new float;
+        const Vector2 size = {20,12};
 
         float speed = 0;
         const float accel = 500.0; //accelaration > friction
@@ -21,15 +19,25 @@ class Car{
         const float friction = 200.0;
         const float turnSpeed = 150.0;
 
+        void CheckCollisions();
     public:
-        Car(Vector2 pos, float rot, std::vector<std::vector<Vector2>>* wall){
+        Vector2 lastPos;
+        Vector2* position = new Vector2;
+        float* angle = new float;
+
+        std::vector<std::vector<Vector2>>* wall;
+
+        bool alive = true;
+
+        Car(Vector2 pos, float rot, std::vector<std::vector<Vector2>>* w){
             std::cout<<pos.x<<" "<<pos.y<<"\n";
             position->x = pos.x;
             position->y = pos.y;
 
             *angle = rot;
-            
-            sensor.wall = wall;
+            wall = w;
+
+            sensor.wall = w;
             sensor.position = position;
             sensor.angle = angle;
         }
@@ -50,12 +58,21 @@ class Car{
 };
 
 void Car::Draw(){
-
+    if(alive){sensor.Draw();
     DrawRectanglePro(getRec(), Vector2{size.x/2, size.y/2}, *angle, CarColor);
-    sensor.Draw();
+    }
 }
 
 void Car::Update(float delta){
+
+    if(!alive){
+        *position = lastPos;
+        return;
+    }
+
+
+    lastPos = *position;
+
     controls.Update();
 
     if(controls.left == true){
@@ -94,4 +111,17 @@ void Car::Update(float delta){
     position->x-=cos(-(*angle)*PI/180.0)*-speed*delta;
 
     sensor.Update();
+    CheckCollisions();
+
+}
+
+
+void Car::CheckCollisions(){
+    for(int i = 0; i<wall->size(); i++){
+        for(int i2 = 0; i2<wall->at(i).size()-1; i2++){
+            if (getIntersection(lastPos, *position, wall->at(i).at(i2), wall->at(i).at(i2+1), sqrt(pow(lastPos.x-position->x,2) + pow(lastPos.y-position->y, 2))).w == 1){
+                alive = false;
+            }
+        }
+    }
 }
