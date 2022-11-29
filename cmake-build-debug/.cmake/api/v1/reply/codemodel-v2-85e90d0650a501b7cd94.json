@@ -9,7 +9,7 @@
 					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
-						"string" : "3.23"
+						"string" : "3.15"
 					},
 					"projectIndex" : 0,
 					"source" : ".",
@@ -27,7 +27,7 @@
 					[
 						0
 					],
-					"name" : "AI_learns_to_drive",
+					"name" : "my_project",
 					"targetIndexes" : 
 					[
 						0
@@ -38,9 +38,9 @@
 			[
 				{
 					"directoryIndex" : 0,
-					"id" : "AI_learns_to_drive::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-AI_learns_to_drive-Debug-946f113eb2a58fc91597.json",
-					"name" : "AI_learns_to_drive",
+					"id" : "my_project::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-my_project-Debug-4de693e9c532978b3eda.json",
+					"name" : "my_project",
 					"projectIndex" : 0
 				}
 			]

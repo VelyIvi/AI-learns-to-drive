@@ -8,6 +8,9 @@
 #include "grid.h"
 #include "pallete.h"
 
+
+#define PI 3.14159265
+
 Map* map = new Map();
 
 Car car (map->startPos, map->startRot, map->map_points);
@@ -45,13 +48,15 @@ int main(){
     {
         delta = GetFrameTime();
 
-        car.Update(float(1.0/60.0));
+        car.Update(delta);
+
+        if(IsKeyDown(KEY_Q)){
+            map->Save_To_Json();
+        }
 
         if(EditEnabled){grid.Update_Components();}
         Render();
-        if(IsKeyDown(KEY_A)){
-            map->Save_To_Json();
-        }
+
     }
 
     delete map;

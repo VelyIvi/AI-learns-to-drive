@@ -1,8 +1,7 @@
 #include "controls.h"
 #include "sensor.h"
+#include "network.h"
 
-
-#define PI 3.14159265
 
 Controls controls;
 
@@ -15,9 +14,9 @@ class Car{
 
         float speed = 0;
         const float accel = 500.0; //accelaration > friction
-        const float max_speed = 300.0;
-        const float friction = 200.0;
-        const float turnSpeed = 150.0;
+        const float max_speed = 600.0;
+        const float friction = 300.0;
+        const float turnSpeed = 100.0;
 
         void CheckCollisions();
     public:
@@ -30,7 +29,6 @@ class Car{
         bool alive = true;
 
         Car(Vector2 pos, float rot, std::vector<std::vector<Vector2>>* w){
-            std::cout<<pos.x<<" "<<pos.y<<"\n";
             position->x = pos.x;
             position->y = pos.y;
 

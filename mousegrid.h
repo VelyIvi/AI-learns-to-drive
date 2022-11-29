@@ -1,6 +1,6 @@
 #include <raylib.h>
 
-#define DARKYELLOW  (Color){177, 174, 0, 255}
+//#define DARKYELLOW  (Color){177, 174, 0, 255}
 
 class MouseGrid {
     private:

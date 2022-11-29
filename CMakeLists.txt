@@ -1,20 +1,17 @@
-cmake_minimum_required(VERSION 3.23)
-project(AI_learns_to_drive)
+cmake_minimum_required(VERSION 3.15)
+project(my_project)
 
-set(CMAKE_CXX_STANDARD 14)
+find_package(raylib 3.0 REQUIRED) # Requires at least version 3.0
 
-include_directories(.)
-include_directories(nlohmann)
+set(CMAKE_CXX_STANDARD 11) # Requires C11 standard
 
-add_executable(AI_learns_to_drive
-        nlohmann/json.hpp
-        nlohmann/json_fwd.hpp
-        controls.h
-        grid.h
-        main.cpp
-        map.h
-        mousegrid.h
-        pallete.h
-        sensor.h
-        tank.h
-        utils.h)
+add_executable(${PROJECT_NAME} main.cpp)
+
+target_link_libraries(${PROJECT_NAME} raylib)
+
+# Checks if OSX and links appropriate frameworks (only required on MacOS)
+if (APPLE)
+    target_link_libraries(${PROJECT_NAME} "-framework IOKit")
+    target_link_libraries(${PROJECT_NAME} "-framework Cocoa")
+    target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
+endif()

@@ -10,24 +10,24 @@ class Controls {
         Controls();
         ~Controls();
         void Update(){
-            if(IsKeyDown(KEY_LEFT)){
+            if(IsKeyDown(KEY_A)){
                 left = true;
             } else {
                 left = false;
             }
-            if(IsKeyDown(KEY_RIGHT)){
+            if(IsKeyDown(KEY_D)){
                 right = true;
             } else {
                 right = false;
             }
 
-            if (IsKeyDown(KEY_UP)){
+            if (IsKeyDown(KEY_W)){
                 forward = true;
             } else {
                 forward = false;
             }
 
-            if(IsKeyDown(KEY_DOWN)){
+            if(IsKeyDown(KEY_S)){
                 reverse = true;
             } else {
                 reverse = false;

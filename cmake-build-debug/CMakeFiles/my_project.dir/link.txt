@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/my_project.dir/main.cpp.o -o my_project  /usr/lib/libraylib.so -L/usr/lib -lraylib 
