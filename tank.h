@@ -101,8 +101,8 @@ void Car::Update(float delta){
     
     if(speed>max_speed){
         speed = max_speed;
-    } else if(speed<-max_speed/2){
-        speed = -max_speed/2;
+    } else if(speed<-max_speed/3){
+        speed = -max_speed/3;
     }
 
     position->y-=sin(-(*angle)*PI/180.0)*speed*delta;

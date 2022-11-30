@@ -4,7 +4,7 @@
 #include <iostream>
 
 #include "map.h"
-#include "tank.h"
+#include "grid.h"
 #include "pallete.h"
 
 
@@ -12,21 +12,23 @@
 
 Map* map = new Map();
 
-Car car (map->startPos, map->startRot, map->map_points);
+Grid grid (map->map_points, map->map_check);
 
 void Startup(){
     SetTargetFPS(60);
 
     InitWindow(1500, 800, "/C++/ Ai Learns To Drive - By Ivan Velychko");
+    grid.Update();
 }
 
 void Render(){
     BeginDrawing();
     ClearBackground(BackGroundColor);
+    grid.Draw();
 
     map->Draw();
-    car.Draw();
 
+    grid.Draw_Components();
     DrawText(TextFormat("%i", GetFPS()), 10, 10, 20, GREEN);
     EndDrawing();
 }
@@ -34,19 +36,20 @@ void Render(){
 int main(){
     Startup();
     float delta;
-//    car.Update(float(1.0/60.0));
-    map->Load_From_Json();
 
     while (!WindowShouldClose())
     {
         delta = GetFrameTime();
 
-        car.Update(delta);
-
-        if(IsKeyDown(KEY_Q)){
+        if(IsKeyPressed(KEY_Q)){
             map->Save_To_Json();
         }
 
+        if(IsKeyPressed(KEY_W)){
+            map->Load_From_Json();
+        }
+
+        grid.Update_Components();
         Render();
 
     }

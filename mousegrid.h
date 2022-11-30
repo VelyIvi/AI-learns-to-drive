@@ -12,13 +12,12 @@ class MouseGrid {
         int currentVecCheck = 0;
 
     public:
-        bool* edit;
         std::vector<std::vector<Vector2>>* wall;
         std::vector<Vector4>* check;
 
 
         std::vector<std::string> types = {"WALL", "CHECK", "CAR"};
-        std::string currentType = "WALL";
+        int currentType = 0;
 
         ~MouseGrid();
         MouseGrid();
@@ -31,45 +30,21 @@ MouseGrid::~MouseGrid(){
 }
 
 MouseGrid::MouseGrid(){
-
+    HideCursor();
 }
 
 void MouseGrid::Update(int gridSize){
     real_position = GetMousePosition();
 
-
-    // if (IsKeyPressed(KEY_A)){
-    //     map->Save_To_Json();
-    // }
-
-    // if (IsKeyPressed(KEY_S)){
-    //     map->Load_From_Json();
-    // }
-
-
-    if (IsKeyPressed(KEY_E)){
-        if (*edit == true){
-            *edit = false;
-        }else if (*edit == false){
-            *edit = true;
-        }
-    }
-    if (*edit==false){
-        ShowCursor();
-        return;
-    }
-
-    HideCursor();
-
     if (IsKeyPressed(KEY_Z)){
-        currentType = types.at(0);
+        currentType = 0;
     } else if (IsKeyPressed(KEY_X)){
-        currentType = types.at(1);
+        currentType = 1;
     } else if (IsKeyPressed(KEY_C)){
-        currentType = types.at(2);
+        currentType = 2;
     }
 
-    if (currentType == "WALL"){
+    if (types.at(currentType) == "WALL"){
         if(wall->size()>1){
             if(IsKeyPressed(KEY_L)){
                 currentVecWall++;
@@ -141,12 +116,16 @@ void MouseGrid::Update(int gridSize){
         } else if(IsMouseButtonPressed(1)){        
             wall->at(currentVecWall).pop_back(); 
         }
-    } else if(currentType == "CHECK"){
+    } else if(types.at(currentType) == "CHECK"){
         
-    } else if(currentType == "CAR") {
+    } else if(types.at(currentType) == "CAR") {
 
     } else {
-        currentType = "WALL";
+        if (currentType>types.size()-1){
+            currentType = types.size()-1;
+        } else if(currentType<0){
+            currentType = 0;
+        }
     }
 
 
@@ -155,18 +134,14 @@ void MouseGrid::Update(int gridSize){
 }
 
 void MouseGrid::Draw(){
-    if (*edit==false){
-        return;
-    }
-    
     DrawCircle(real_position.x, real_position.y, 3, MAROON);
 
-    if (currentType == "WALL"){
+    if (types.at(currentType) == "WALL"){
         if (wall->size()>0){
             for(int i=0; i<wall->size(); i++){
                 if (wall->at(i).size()>0){
                     for(int j=0; j<wall->at(i).size()-1; j++){
-                        if(i == currentVecWall && *edit == true){
+                        if(i == currentVecWall){
                             DrawLineV(wall->at(i).at(j), wall->at(i).at(j+1), GREEN);
                             DrawCircle(wall->at(i).at(j).x, wall->at(i).at(j).y, 2, GREEN);
                         }
@@ -175,19 +150,18 @@ void MouseGrid::Draw(){
             }
         }
 
-        if (wall->size()<=0){
-            return;
-        }
-        if(wall->at(currentVecWall).size() > 0){
-            DrawLineV(newestPoint, position, DARKGREEN);
-            DrawCircle(newestPoint.x, newestPoint.y, 3.0f, GREEN);
-        }
-        DrawCircle(position.x, position.y, 3, DARKGREEN);
-        const char *cur_vec_text = TextFormat("%i", currentVecWall);
-        DrawText(cur_vec_text, 10, 40, 40, GREEN);
 
+        if (wall->size()>0){
+            if(wall->at(currentVecWall).size() > 0){
+                DrawLineV(newestPoint, position, DARKGREEN);
+                DrawCircle(newestPoint.x, newestPoint.y, 3.0f, GREEN);
+            }
+            DrawCircle(position.x, position.y, 3, DARKGREEN);
+            const char *cur_vec_text = TextFormat("%i", currentVecWall);
+            DrawText(cur_vec_text, 10, 40, 40, GREEN);
+        } else {
+            DrawText("There are no walls, press \"K\" to make a new wall!", 800, 50, 20, YELLOW);
+        }
     }
-    DrawText(currentType.c_str(), 800, 10, 30, YELLOW);
-    
-    
+    DrawText(types.at(currentType).c_str(), 800, 10, 30, YELLOW);
 }

@@ -8,15 +8,6 @@ class Grid{
         std::vector<Vector2> DrawGridPoints;
 
     public:
-        bool* edit = new bool(false);
-
-        std::vector<std::vector<Vector2>>* map;
-        std::vector<Vector4>* check;
-
-        Vector2 startPos= {0,0};
-        float startRot= 0;
-
-
         Grid(std::vector<std::vector<Vector2>>* w, std::vector<Vector4>* c);
         ~Grid();
         void Update();
@@ -26,25 +17,16 @@ class Grid{
 };
 
 Grid::Grid(std::vector<std::vector<Vector2>>* w, std::vector<Vector4>* c){
-    map = w;
-    check = c;
     mouseGrid.wall  = w;
     mouseGrid.check  = c;
-    // mouseGrid.map = m;
 
-    mouseGrid.edit = edit;
     Update();
     
 }
 
 
-Grid::~Grid(){
-    std::cout<<"Called Grid destructor\n";
-
-    delete edit;
-    edit = NULL;
-
-
+Grid::~Grid() {
+    std::cout << "Called Grid destructor\n";
 }
 
 void Grid::Update(){

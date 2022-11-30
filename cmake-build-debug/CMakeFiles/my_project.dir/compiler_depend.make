@@ -282,15 +282,13 @@ CMakeFiles/my_project.dir/main.cpp.o: ../main.cpp \
   ../tank.h \
   ../controls.h \
   ../sensor.h \
-  ../utils.h \
-  ../network.h \
-  ../grid.h \
-  ../mousegrid.h
+  ../utils.hpp \
+  ../network.h
 
 
 ../network.h:
 
-../utils.h:
+../utils.hpp:
 
 ../sensor.h:
 
@@ -704,8 +702,6 @@ CMakeFiles/my_project.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/c++/12.2.0/typeinfo:
 
-../mousegrid.h:
-
 /usr/include/c++/12.2.0/bits/indirect_array.h:
 
 /usr/include/c++/12.2.0/cstdint:
@@ -799,8 +795,6 @@ CMakeFiles/my_project.dir/main.cpp.o: ../main.cpp \
 /usr/include/features.h:
 
 /usr/include/bits/types/struct_FILE.h:
-
-../grid.h:
 
 /usr/include/bits/types/cookie_io_functions_t.h:
 

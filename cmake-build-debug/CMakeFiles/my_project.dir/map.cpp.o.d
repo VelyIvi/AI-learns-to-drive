@@ -1,5 +1,5 @@
-CMakeFiles/my_project.dir/main.cpp.o: \
- /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/main.cpp \
+CMakeFiles/my_project.dir/map.cpp.o: \
+ /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/map.cpp \
  /usr/include/stdc-predef.h /usr/include/raylib.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/12.2.0/include/stdarg.h \
  /usr/include/c++/12.2.0/math.h /usr/include/c++/12.2.0/cmath \
@@ -210,8 +210,5 @@ CMakeFiles/my_project.dir/main.cpp.o: \
  /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/basic_file.h \
  /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/c++io.h \
  /usr/include/c++/12.2.0/bits/fstream.tcc \
- /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/tank.h \
- /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/controls.h \
- /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/sensor.h \
- /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/utils.hpp \
- /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/network.h
+ /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/grid.h \
+ /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/mousegrid.h
