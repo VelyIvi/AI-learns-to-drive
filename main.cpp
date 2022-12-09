@@ -7,7 +7,6 @@
 #include "tank.h"
 #include "pallete.h"
 
-
 #define PI 3.14159265
 
 Map* map = new Map();

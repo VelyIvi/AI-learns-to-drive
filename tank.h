@@ -5,6 +5,10 @@
 
 Controls controls;
 
+
+//Level lvel(4,10);
+
+
 Sensor sensor;
 
 
@@ -56,15 +60,18 @@ class Car{
 };
 
 void Car::Draw(){
-    if(alive){sensor.Draw();
-    DrawRectanglePro(getRec(), Vector2{size.x/2, size.y/2}, *angle, CarColor);
+    if(alive){
+        sensor.Draw();
+        DrawRectanglePro(getRec(), Vector2{size.x/2, size.y/2}, *angle, CarColor);
+    } else {
+        DrawRectanglePro(getRec(), Vector2{size.x/2, size.y/2}, *angle, CarDeadColor);
     }
 }
 
 void Car::Update(float delta){
 
     if(!alive){
-        *position = lastPos;
+//        *position = lastPos;
         return;
     }
 

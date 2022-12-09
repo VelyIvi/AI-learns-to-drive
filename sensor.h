@@ -31,8 +31,8 @@ Sensor ::Sensor (){
 
 Sensor ::~Sensor (){
     std::cout<<"Called Sensor destructor"<<"\n";
-    angle = NULL;
-    position = NULL;
+    angle = nullptr;
+    position = nullptr;
 }
 
 void Sensor ::Update(){
@@ -44,8 +44,8 @@ void Sensor ::CastRays(){
     rays.clear();
     for(int i=0; i<rayCount; i++){
         Vector2 startPos = {position->x, position->y};
-        float ang = lerp(-0.5*raySpread+(*angle), 0.5*raySpread+(*angle), i/(rayCount-1));
-        Vector2 endPos = {cos(-(ang)*PI/180.0)*rayLength+position->x, sin(-(ang)*PI/180.0)*-rayLength+position->y};
+        float ang = lerp(-0.5f*raySpread+(*angle), 0.5f*raySpread+(*angle), float(i)/(rayCount-1));
+        Vector2 endPos = {float(cos(-(ang)*PI/180.0)*rayLength+position->x), float(sin(-(ang)*PI/180.0)*-rayLength+position->y)};
         rays.push_back({startPos.x, startPos.y, endPos.x, endPos.y});
     }
     GetReading();
@@ -55,15 +55,15 @@ void Sensor ::GetReading(){
     readings.clear();
     for (int x = 0; x < rayCount; x++){
         std::vector<Vector4> hit;
-        for(int e = 0; e<wall->size(); e++){
-            for(int e2 = 0; e2<wall->at(e).size()-1; e2++){
-                Vector4 p = getIntersection({rays.at(x).x, rays.at(x).y}, {rays.at(x).z, rays.at(x).w}, wall->at(e).at(e2), wall->at(e).at(e2+1), rayLength);
+        for(std::vector<Vector2> wallArray : *wall){
+            for(int e2 = 0; e2<wallArray.size()-1; e2++){
+                Vector4 p = getIntersection({rays.at(x).x, rays.at(x).y}, {rays.at(x).z, rays.at(x).w}, wallArray.at(e2), wallArray.at(e2+1), rayLength);
                 hit.push_back(p);
             }
         }
-        Vector4 currentClosest;
+        Vector4 currentClosest = {rays.at(x).z, rays.at(x).w,float(rayLength),0}; //inputs max to fix a bug
         for(int f = 0; f < hit.size(); f++){
-            if(hit.at(f).z < currentClosest.z){
+            if(hit.at(f).z <= currentClosest.z){
                 currentClosest = hit.at(f);
             }
         }
@@ -72,13 +72,16 @@ void Sensor ::GetReading(){
 }
 
 void Sensor::Draw(){
-    for(int i = 0 ; i<readings.size(); i++){
-        if(readings.at(i).w == 1){
-            DrawLine(position->x, position->y, readings.at(i).x, readings.at(i).y, RaycastColor);
-            DrawCircle(readings.at(i).x, readings.at(i).y, 3, RaycastColor);
-        } else {
-            DrawLine(position->x, position->y, readings.at(i).x, readings.at(i).y, RaycastColor);
-        }
+    int i = 0;
+    for(Vector4 readingsVector : readings){
+        if(readingsVector.w == 1){
+            DrawLineV({readingsVector.x, readingsVector.y}, {rays.at(i).z, rays.at(i).w}, RaycastShadeColor);
 
+            DrawLineV(*position, {readingsVector.x, readingsVector.y}, RaycastColor);
+            DrawCircle(readingsVector.x, readingsVector.y, 3, RaycastColor);
+        } else {
+            DrawLineV(*position, {rays.at(i).z, rays.at(i).w}, RaycastColor);
+        }
+        i++;
     }
 }
