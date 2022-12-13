@@ -1,5 +1,4 @@
 #include <raylib.h>
-#include <math.h>
 #include <vector>
 #include <iostream>
 
@@ -11,7 +10,7 @@
 
 Map* map = new Map();
 
-Car car (map->startPos, map->startRot, map->map_points);
+Car car(map->startPos, map->startRot, map->map_points);
 
 void Startup(){
     SetTargetFPS(60);
@@ -51,7 +50,7 @@ int main(){
     }
 
     delete map;
-    map = NULL;
+    map = nullptr;
     std::cout<<"Main code finished\n";
 
     return 0;

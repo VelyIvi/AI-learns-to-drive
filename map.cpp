@@ -4,7 +4,7 @@
 #include <iostream>
 
 #include "map.h"
-#include "grid.h"
+#include "grid.hpp"
 #include "pallete.h"
 
 

@@ -1,33 +1,38 @@
 #include "utils.hpp"
 
 class Sensor {
-    private:
-        const int rayLength = 250;
-        const float rayCount = 9;
-        const float raySpread = 180+60; //in degrees
+private:
+    const int rayLength = 250;
+    const float rayCount = 9;
+    const float raySpread = 180+60; //in degrees
 
-        std::vector<Vector4> rays;
-        void GetReading();
-        void CastRays();
+    std::vector<Vector4> rays;
+    void GetReading();
+    void CastRays();
 
-    public:
-        float* angle;
-        Vector2* position;
-        std::vector<std::vector<Vector2>>* wall;
-        std::vector<Vector4> readings;
+public:
+    float* angle;
+    Vector2* position;
+    std::vector<std::vector<Vector2>>* wall;
+    std::vector<Vector4> readings;
 
+//    Sensor();
+    Sensor(std::vector<std::vector<Vector2>>* w, float* a, Vector2* p);
 
-        Sensor ();
-        ~Sensor ();
+    ~Sensor();
 
-        void Update();
-        void Draw();
+    void Update();
+    void Draw();
 
 };
 
-Sensor ::Sensor (){
-    
+Sensor ::Sensor (std::vector<std::vector<Vector2>>* w, float* a, Vector2* p){
+    wall = w;
+    angle = a;
+    position = p;
 }
+
+//Sensor::Sensor(){}
 
 Sensor ::~Sensor (){
     std::cout<<"Called Sensor destructor"<<"\n";
