@@ -1,27 +1,22 @@
-#include "mousegrid.h"
+#include "mouseGrid.hpp"
 
-MouseGrid mouseGrid;
 
 class Grid{
-    private:
-        const int gridSize = 20;
-        std::vector<Vector2> DrawGridPoints;
-
-    public:
-        Grid(std::vector<std::vector<Vector2>>* w, std::vector<Vector4>* c);
-        ~Grid();
-        void Update();
-        void Update_Components();
-        void Draw();
-        void Draw_Components();
+    MouseGrid mouseGrid;
+private:
+    const int gridSize = 20;
+    std::vector<Vector2> DrawGridPoints;
+public:
+    Grid(std::vector<std::vector<Vector2>>* w, std::vector<std::vector<Vector2>>* c, Vector2* p, float* r);
+    ~Grid();
+    void Update();
+    void Update_Components();
+    void Draw();
+    void Draw_Components();
 };
 
-Grid::Grid(std::vector<std::vector<Vector2>>* w, std::vector<Vector4>* c){
-    mouseGrid.wall  = w;
-    mouseGrid.check  = c;
-
+Grid::Grid(std::vector<std::vector<Vector2>>* w, std::vector<std::vector<Vector2>>* c, Vector2* p, float* r) : mouseGrid(w, c, p, r){
     Update();
-    
 }
 
 

@@ -1,5 +1,5 @@
-CMakeFiles/my_project.dir/main.cpp.o: \
- /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/main.cpp \
+CMakeFiles/my_project.dir/mainer.cpp.o: \
+ /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/mainer.cpp \
  /usr/include/stdc-predef.h /usr/include/raylib.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/12.2.0/include/stdarg.h \
  /usr/include/c++/12.2.0/vector \
@@ -134,19 +134,7 @@ CMakeFiles/my_project.dir/main.cpp.o: \
  /usr/include/c++/12.2.0/bits/locale_facets.tcc \
  /usr/include/c++/12.2.0/bits/basic_ios.tcc \
  /usr/include/c++/12.2.0/bits/ostream.tcc /usr/include/c++/12.2.0/istream \
- /usr/include/c++/12.2.0/bits/istream.tcc /usr/include/c++/12.2.0/random \
- /usr/include/c++/12.2.0/cmath /usr/include/math.h \
- /usr/include/bits/math-vector.h /usr/include/bits/libm-simd-decl-stubs.h \
- /usr/include/bits/flt-eval-method.h /usr/include/bits/fp-logb.h \
- /usr/include/bits/fp-fast.h \
- /usr/include/bits/mathcalls-helper-functions.h \
- /usr/include/bits/mathcalls.h /usr/include/bits/mathcalls-narrow.h \
- /usr/include/bits/iscanonical.h /usr/include/c++/12.2.0/limits \
- /usr/include/c++/12.2.0/bits/random.h \
- /usr/include/c++/12.2.0/bits/uniform_int_dist.h \
- /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/opt_random.h \
- /usr/include/c++/12.2.0/bits/random.tcc /usr/include/c++/12.2.0/numeric \
- /usr/include/c++/12.2.0/bits/stl_numeric.h \
+ /usr/include/c++/12.2.0/bits/istream.tcc \
  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/map.hpp \
  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/nlohmann/json.hpp \
  /usr/include/c++/12.2.0/algorithm \
@@ -154,6 +142,7 @@ CMakeFiles/my_project.dir/main.cpp.o: \
  /usr/include/c++/12.2.0/bits/algorithmfwd.h \
  /usr/include/c++/12.2.0/bits/stl_heap.h \
  /usr/include/c++/12.2.0/bits/stl_tempbuf.h \
+ /usr/include/c++/12.2.0/bits/uniform_int_dist.h \
  /usr/include/c++/12.2.0/cstddef /usr/include/c++/12.2.0/functional \
  /usr/include/c++/12.2.0/tuple \
  /usr/include/c++/12.2.0/bits/uses_allocator.h \
@@ -187,7 +176,14 @@ CMakeFiles/my_project.dir/main.cpp.o: \
  /usr/include/c++/12.2.0/bits/hashtable_policy.h \
  /usr/include/c++/12.2.0/bits/enable_special_members.h \
  /usr/include/c++/12.2.0/bits/unordered_map.h \
- /usr/include/c++/12.2.0/valarray \
+ /usr/include/c++/12.2.0/valarray /usr/include/c++/12.2.0/cmath \
+ /usr/include/math.h /usr/include/bits/math-vector.h \
+ /usr/include/bits/libm-simd-decl-stubs.h \
+ /usr/include/bits/flt-eval-method.h /usr/include/bits/fp-logb.h \
+ /usr/include/bits/fp-fast.h \
+ /usr/include/bits/mathcalls-helper-functions.h \
+ /usr/include/bits/mathcalls.h /usr/include/bits/mathcalls-narrow.h \
+ /usr/include/bits/iscanonical.h \
  /usr/include/c++/12.2.0/bits/valarray_array.h \
  /usr/include/c++/12.2.0/bits/valarray_array.tcc \
  /usr/include/c++/12.2.0/bits/valarray_before.h \
@@ -198,8 +194,10 @@ CMakeFiles/my_project.dir/main.cpp.o: \
  /usr/include/c++/12.2.0/bits/mask_array.h \
  /usr/include/c++/12.2.0/bits/indirect_array.h \
  /usr/include/c++/12.2.0/version /usr/include/c++/12.2.0/cassert \
- /usr/include/assert.h /usr/include/c++/12.2.0/cstring \
- /usr/include/string.h /usr/include/strings.h \
+ /usr/include/assert.h /usr/include/c++/12.2.0/limits \
+ /usr/include/c++/12.2.0/cstring /usr/include/string.h \
+ /usr/include/strings.h /usr/include/c++/12.2.0/numeric \
+ /usr/include/c++/12.2.0/bits/stl_numeric.h \
  /usr/include/c++/12.2.0/iomanip /usr/include/c++/12.2.0/locale \
  /usr/include/c++/12.2.0/bits/locale_facets_nonio.h \
  /usr/include/c++/12.2.0/ctime \

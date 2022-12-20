@@ -3,7 +3,7 @@
 #include <vector>
 #include <iostream>
 
-#include "map.h"
+#include "map.hpp"
 #include "grid.hpp"
 #include "pallete.h"
 
@@ -12,7 +12,7 @@
 
 Map* map = new Map();
 
-Grid grid (map->map_points, map->map_check);
+Grid grid (map->map_points, map->map_check, map->startPos, map->startRot);
 
 void Startup(){
     SetTargetFPS(60);
@@ -25,6 +25,7 @@ void Render(){
     BeginDrawing();
     ClearBackground(BackGroundColor);
     grid.Draw();
+    HideCursor();
 
     map->Draw();
 

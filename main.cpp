@@ -2,18 +2,21 @@
 #include <vector>
 #include <iostream>
 
-#include "map.h"
-#include "tank.h"
+#include <random>
+
+#include "map.hpp"
+#include "tank.hpp"
 #include "pallete.h"
 
 #define PI 3.14159265
 
 Map* map = new Map();
 
-Car car(map->startPos, map->startRot, map->map_points);
+Car car(*map->startPos, *map->startRot, map->map_points);
 
 void Startup(){
     SetTargetFPS(60);
+//    map->Load_From_Json();
 
     InitWindow(1500, 800, "/C++/ Ai Learns To Drive - By Ivan Velychko");
 }
@@ -25,15 +28,13 @@ void Render(){
     map->Draw();
     car.Draw();
 
-    DrawText(TextFormat("%i", GetFPS()), 10, 10, 20, GREEN);
+    DrawText(TextFormat("%i", GetFPS()), 6, 6, 20, WallColor);
     EndDrawing();
 }
 
 int main(){
     Startup();
     float delta;
-//    car.Update(float(1.0/60.0));
-    map->Load_From_Json();
 
     while (!WindowShouldClose())
     {

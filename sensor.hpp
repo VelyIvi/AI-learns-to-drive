@@ -2,55 +2,47 @@
 
 class Sensor {
 private:
-    const int rayLength = 250;
+    const int rayLength = 200;
     const float rayCount = 9;
     const float raySpread = 180+60; //in degrees
 
     std::vector<Vector4> rays;
     void GetReading();
-    void CastRays();
+    void CastRays(Vector2& position, float& angle);
 
 public:
-    float* angle;
-    Vector2* position;
     std::vector<std::vector<Vector2>>* wall;
     std::vector<Vector4> readings;
 
-//    Sensor();
-    Sensor(std::vector<std::vector<Vector2>>* w, float* a, Vector2* p);
-
+    Sensor(std::vector<std::vector<Vector2>>* w);
     ~Sensor();
 
-    void Update();
-    void Draw();
+    void Update(Vector2& position, float& angle);
+    void Draw(Vector2& position);
 
 };
 
-Sensor ::Sensor (std::vector<std::vector<Vector2>>* w, float* a, Vector2* p){
-    wall = w;
-    angle = a;
-    position = p;
-}
 
-//Sensor::Sensor(){}
+
+Sensor::Sensor(std::vector<std::vector<Vector2>>* w){
+    wall = w;
+}
 
 Sensor ::~Sensor (){
     std::cout<<"Called Sensor destructor"<<"\n";
-    angle = nullptr;
-    position = nullptr;
 }
 
-void Sensor ::Update(){
-    CastRays();
+void Sensor ::Update(Vector2& position, float& angle){
+    CastRays(position, angle);
 }
 
 
-void Sensor ::CastRays(){
+void Sensor ::CastRays(Vector2& position, float& angle){
     rays.clear();
     for(int i=0; i<rayCount; i++){
-        Vector2 startPos = {position->x, position->y};
-        float ang = lerp(-0.5f*raySpread+(*angle), 0.5f*raySpread+(*angle), float(i)/(rayCount-1));
-        Vector2 endPos = {float(cos(-(ang)*PI/180.0)*rayLength+position->x), float(sin(-(ang)*PI/180.0)*-rayLength+position->y)};
+        Vector2 startPos = position;
+        float ang = lerp(-0.5f*raySpread+(angle), 0.5f*raySpread+(angle), float(i)/(rayCount-1));
+        Vector2 endPos = {float(cos(-(ang)*PI/180.0)*rayLength+position.x), float(sin(-(ang)*PI/180.0)*-rayLength+position.y)};
         rays.push_back({startPos.x, startPos.y, endPos.x, endPos.y});
     }
     GetReading();
@@ -76,16 +68,16 @@ void Sensor ::GetReading(){
     }
 }
 
-void Sensor::Draw(){
+void Sensor::Draw(Vector2& position){
     int i = 0;
     for(Vector4 readingsVector : readings){
         if(readingsVector.w == 1){
             DrawLineV({readingsVector.x, readingsVector.y}, {rays.at(i).z, rays.at(i).w}, RaycastShadeColor);
 
-            DrawLineV(*position, {readingsVector.x, readingsVector.y}, RaycastColor);
+            DrawLineV(position, {readingsVector.x, readingsVector.y}, RaycastColor);
             DrawCircle(readingsVector.x, readingsVector.y, 3, RaycastColor);
         } else {
-            DrawLineV(*position, {rays.at(i).z, rays.at(i).w}, RaycastColor);
+            DrawLineV(position, {rays.at(i).z, rays.at(i).w}, RaycastColor);
         }
         i++;
     }
