@@ -5,18 +5,19 @@
 #include <random>
 
 #include "map.hpp"
-#include "tank.hpp"
+#include "car.hpp"
 #include "pallete.h"
 
 #define PI 3.14159265
 
 Map* map = new Map();
 
-Car car(*map->startPos, *map->startRot, map->map_points);
+Car car(*map->startPos, *map->startRot, map->map_points, map->map_check);
 
 void Startup(){
     SetTargetFPS(60);
-//    map->Load_From_Json();
+    map->Load_From_Json();
+    car.UpdateValues(*map->startPos, *map->startRot, true);
 
     InitWindow(1500, 800, "/C++/ Ai Learns To Drive - By Ivan Velychko");
 }

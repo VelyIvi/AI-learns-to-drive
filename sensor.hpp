@@ -3,7 +3,6 @@
 class Sensor {
 private:
     const int rayLength = 200;
-    const float rayCount = 9;
     const float raySpread = 180+60; //in degrees
 
     std::vector<Vector4> rays;
@@ -11,6 +10,7 @@ private:
     void CastRays(Vector2& position, float& angle);
 
 public:
+    const float rayCount = 9;
     std::vector<std::vector<Vector2>>* wall;
     std::vector<Vector4> readings;
 

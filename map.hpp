@@ -20,34 +20,33 @@ struct Map{
         Map();
         ~Map();
 
-        void Draw();
+        void Draw() const;
 
         void Save_To_Json();
-        void Load_From_Json();
+        void Load_From_Json() const;
 };
 
 Map::Map(){
-    Load_From_Json();
 }
 
 Map::~Map(){
     std::cout<<"Called Map destructor\n";
 
     delete map_points;
-    map_points = NULL;
+    map_points = nullptr;
 
     delete map_check;
-    map_check = NULL;
+    map_check = nullptr;
 
 }
 
 
 void drawArrayMapPoints(std::vector<std::vector<Vector2>>* vec, Color color){
-    if (vec->size()>0){
-        for(int i=0; i<vec->size(); i++){
-            if (vec->at(i).size()>0){
-                for(int j=0; j<vec->at(i).size()-1; j++){
-                    DrawLineV(vec->at(i).at(j), vec->at(i).at(j+1), color);
+    if (!vec->empty()){
+        for(auto & i : *vec){
+            if (!i.empty()){
+                for(int j=0; j<i.size()-1; j++){
+                    DrawLineV(i.at(j), i.at(j+1), color);
                     // DrawCircle(map_points->at(i).at(j).x, map_points->at(i).at(j).y, 1, color);
                 }
             }
@@ -55,7 +54,7 @@ void drawArrayMapPoints(std::vector<std::vector<Vector2>>* vec, Color color){
     }
 }
 
-void Map::Draw(){
+void Map::Draw() const{
     drawArrayMapPoints(map_points, WallColor);
     drawArrayMapPoints(map_check, CheckColor);
 }
@@ -65,8 +64,8 @@ void Map::Save_To_Json(){
     std::cout<<"Saving to json"<<"\n";
     json j;
 
-    time_t now = time(0);
-    char* dt = ctime(&now);
+//    time_t now = time(0);
+//    char* dt = ctime(&now);
 
 
     auto lines = json{
@@ -77,17 +76,17 @@ void Map::Save_To_Json(){
         {"rot", float()},
     };
 
-    for (int i = 0; i < map_points->size(); i++) {
+    for (int mapOuter = 0; mapOuter < map_points->size(); mapOuter++) {
         auto& outer = lines["wall"];
-        for (int j = 0; j < map_points->at(i).size(); j++) {
-            outer[i].push_back({map_points->at(i).at(j).x, map_points->at(i).at(j).y});
+        for (int mapInner = 0; mapInner < map_points->at(mapOuter).size(); mapInner++) {
+            outer[mapOuter].push_back({map_points->at(mapOuter).at(mapInner).x, map_points->at(mapOuter).at(mapInner).y});
         }
     }
 
-    for (int i = 0; i < map_check->size(); i++) {
+    for (int checkOuter = 0; checkOuter < map_check->size(); checkOuter++) {
         auto& outer = lines["check"];
-        for (int j = 0; j < map_check->at(i).size(); j++) {
-            outer[i].push_back({map_check->at(i).at(j).x, map_check->at(i).at(j).y});
+        for (int checkInner = 0; checkInner < map_check->at(checkOuter).size(); checkInner++) {
+            outer[checkOuter].push_back({map_check->at(checkOuter).at(checkInner).x, map_check->at(checkOuter).at(checkInner).y});
         }
     }
 
@@ -100,30 +99,26 @@ void Map::Save_To_Json(){
     file << lines;
 }
 
-void Map::Load_From_Json(){
+void Map::Load_From_Json() const{
     std::cout<<"Loading from json"<<"\n";
     map_points->clear();
     map_check->clear();
 
     std::ifstream f("map.json");
     json data = json::parse(f);
-//    std::cout<<data["posX"]<<"\n";
-//    std::cout<<data["posY"]<<"\n";
-//    std::cout<<data["wall"].at(1).size()<<"\n";
-//    std::cout<<"e--e--e--e--e--e\n";
 
     *startPos={data["posX"], data["posY"]};
     *startRot = data["rot"];
 
     for(int w1 = 0; w1<data["wall"].size(); w1++){
-        if(map_points->size() < w1+1){map_points->push_back({});};
+        if(map_points->size() < w1+1){map_points->push_back({});}
         for(int w2 = 0; w2<data["wall"].at(w1).size(); w2++){
             map_points->at(w1).push_back(Vector2{data["wall"].at(w1).at(w2).at(0), data["wall"].at(w1).at(w2).at(1)});
         }
     }
 
     for(int w1 = 0; w1<data["check"].size(); w1++){
-        if(map_check->size() < w1+1){map_check->push_back({});};
+        if(map_check->size() < w1+1){map_check->push_back({});}
         for(int w2 = 0; w2<data["check"].at(w1).size(); w2++){
             map_check->at(w1).push_back(Vector2{data["check"].at(w1).at(w2).at(0), data["check"].at(w1).at(w2).at(1)});
         }

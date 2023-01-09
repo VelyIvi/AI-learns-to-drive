@@ -282,7 +282,7 @@ CMakeFiles/my_project.dir/main.cpp.o: /home/ivi/CodeLocal/Projects/AI-learns-to-
   /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/basic_file.h \
   /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/c++io.h \
   /usr/include/c++/12.2.0/bits/fstream.tcc \
-  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/tank.hpp \
+  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/car.hpp \
   /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/controls.hpp \
   /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/sensor.hpp \
   /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/utils.hpp \
@@ -293,7 +293,7 @@ CMakeFiles/my_project.dir/main.cpp.o: /home/ivi/CodeLocal/Projects/AI-learns-to-
 
 /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/controls.hpp:
 
-/home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/tank.hpp:
+/home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/car.hpp:
 
 /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/basic_file.h:
 
