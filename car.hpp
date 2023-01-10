@@ -45,12 +45,13 @@ public:
     const int maxFramesNotCheck = 180;
 };
 
-Car::Car(Vector2 pos, float rot, std::vector<std::vector<Vector2>> *w, std::vector<std::vector<Vector2>> *c) :
-sensor(w), level(sensor.rayCount,4){
+Car::Car(Vector2 pos, float rot, std::vector<std::vector<Vector2>> *w, std::vector<std::vector<Vector2>> *c) : sensor(w), level(9,4){
     wall = w;
     check = c;
     position = pos;
     rotation = rot;
+
+    sensor.Update(pos, rot);
 }
 
 Car::~Car() {
@@ -85,20 +86,13 @@ void Car::Update(float& delta){
 
     lastPos = position;
 
-    controls.Update();
 
-    if(controls.left){
-        rotation-= turnSpeed * delta;
+    float AiInputs[sensor.rayCount];
+    for(int i= 0; i<sensor.rayCount; i++){
+        AiInputs[i] = (sensor.readings.at(i).z/sensor.rayLength);
     }
-    if(controls.right){
-        rotation+= turnSpeed * delta;
-    }
-    if (controls.forward){
-        speed+=accel*delta;
-    }
-    if(controls.reverse){
-        speed-=accel*delta;
-    }
+
+
 
     if (speed>0.0){
         speed-=friction*delta;

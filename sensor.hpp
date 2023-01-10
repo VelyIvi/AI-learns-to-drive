@@ -2,7 +2,6 @@
 
 class Sensor {
 private:
-    const int rayLength = 200;
     const float raySpread = 180+60; //in degrees
 
     std::vector<Vector4> rays;
@@ -10,7 +9,9 @@ private:
     void CastRays(Vector2& position, float& angle);
 
 public:
-    const float rayCount = 9;
+    const int rayCount = 9;
+    const int rayLength = 200;
+
     std::vector<std::vector<Vector2>>* wall;
     std::vector<Vector4> readings;
 
@@ -60,7 +61,7 @@ void Sensor ::GetReading(){
         }
         Vector4 currentClosest = {rays.at(x).z, rays.at(x).w,float(rayLength),0}; //inputs max to fix a bug
         for(int f = 0; f < hit.size(); f++){
-            if(hit.at(f).z <= currentClosest.z){
+            if(hit.at(f).z <= currentClosest.z && hit.at(f).w == 1){
                 currentClosest = hit.at(f);
             }
         }

@@ -1,8 +1,9 @@
 #include <raylib.h>
 #include <vector>
 #include <iostream>
-
+#include <chrono>
 #include <random>
+#include <ctime>
 
 #include "map.hpp"
 #include "car.hpp"
@@ -20,6 +21,7 @@ void Startup(){
     car.UpdateValues(*map->startPos, *map->startRot, true);
 
     InitWindow(1500, 800, "/C++/ Ai Learns To Drive - By Ivan Velychko");
+
 }
 
 void Render(){

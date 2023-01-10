@@ -187,6 +187,12 @@ CMakeFiles/my_project.dir/main.cpp.o: /home/ivi/CodeLocal/Projects/AI-learns-to-
   /usr/include/c++/12.2.0/bits/ostream.tcc \
   /usr/include/c++/12.2.0/istream \
   /usr/include/c++/12.2.0/bits/istream.tcc \
+  /usr/include/c++/12.2.0/chrono \
+  /usr/include/c++/12.2.0/bits/chrono.h \
+  /usr/include/c++/12.2.0/ratio \
+  /usr/include/c++/12.2.0/limits \
+  /usr/include/c++/12.2.0/ctime \
+  /usr/include/c++/12.2.0/bits/parse_numbers.h \
   /usr/include/c++/12.2.0/random \
   /usr/include/c++/12.2.0/cmath \
   /usr/include/math.h \
@@ -199,7 +205,6 @@ CMakeFiles/my_project.dir/main.cpp.o: /home/ivi/CodeLocal/Projects/AI-learns-to-
   /usr/include/bits/mathcalls.h \
   /usr/include/bits/mathcalls-narrow.h \
   /usr/include/bits/iscanonical.h \
-  /usr/include/c++/12.2.0/limits \
   /usr/include/c++/12.2.0/bits/random.h \
   /usr/include/c++/12.2.0/bits/uniform_int_dist.h \
   /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/opt_random.h \
@@ -270,7 +275,6 @@ CMakeFiles/my_project.dir/main.cpp.o: /home/ivi/CodeLocal/Projects/AI-learns-to-
   /usr/include/c++/12.2.0/iomanip \
   /usr/include/c++/12.2.0/locale \
   /usr/include/c++/12.2.0/bits/locale_facets_nonio.h \
-  /usr/include/c++/12.2.0/ctime \
   /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/time_members.h \
   /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/messages_members.h \
   /usr/include/libintl.h \
@@ -286,14 +290,15 @@ CMakeFiles/my_project.dir/main.cpp.o: /home/ivi/CodeLocal/Projects/AI-learns-to-
   /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/controls.hpp \
   /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/sensor.hpp \
   /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/utils.hpp \
-  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/network.hpp
+  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/network.hpp \
+  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/AiGrid.hpp
 
+
+/home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/AiGrid.hpp:
 
 /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/sensor.hpp:
 
 /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/controls.hpp:
-
-/home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/car.hpp:
 
 /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/basic_file.h:
 
@@ -400,6 +405,12 @@ CMakeFiles/my_project.dir/main.cpp.o: /home/ivi/CodeLocal/Projects/AI-learns-to-
 /usr/include/bits/fp-logb.h:
 
 /usr/include/c++/12.2.0/random:
+
+/home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/car.hpp:
+
+/usr/include/c++/12.2.0/ratio:
+
+/usr/include/c++/12.2.0/bits/chrono.h:
 
 /usr/include/c++/12.2.0/bits/stl_heap.h:
 
@@ -675,6 +686,8 @@ CMakeFiles/my_project.dir/main.cpp.o: /home/ivi/CodeLocal/Projects/AI-learns-to-
 
 /usr/include/c++/12.2.0/bits/char_traits.h:
 
+/usr/include/c++/12.2.0/chrono:
+
 /usr/include/bits/cpu-set.h:
 
 /usr/include/bits/stdint-intn.h:
@@ -690,6 +703,8 @@ CMakeFiles/my_project.dir/main.cpp.o: /home/ivi/CodeLocal/Projects/AI-learns-to-
 /usr/lib/gcc/x86_64-pc-linux-gnu/12.2.0/include/stdint.h:
 
 /usr/include/stdint.h:
+
+/usr/include/c++/12.2.0/bits/parse_numbers.h:
 
 /usr/include/c++/12.2.0/new:
 
@@ -707,9 +722,9 @@ CMakeFiles/my_project.dir/main.cpp.o: /home/ivi/CodeLocal/Projects/AI-learns-to-
 
 /usr/include/c++/12.2.0/bits/std_abs.h:
 
-/usr/include/c++/12.2.0/ctime:
-
 /usr/include/c++/12.2.0/cmath:
+
+/usr/include/c++/12.2.0/ctime:
 
 /usr/include/bits/stdint-uintn.h:
 
