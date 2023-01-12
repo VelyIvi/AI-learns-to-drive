@@ -7,7 +7,7 @@
 
 class Car{
 public:
-    const std::vector<int> nnLayerSizes = {9,8,6,5,4};
+    const std::vector<int> nnLayerSizes = {9,6,4};
     NeuralNetwork nn;
     Sensor sensor;
 private:

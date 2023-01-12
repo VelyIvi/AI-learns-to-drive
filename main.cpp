@@ -20,7 +20,7 @@ void startSim(){
 
     car.clear();
     aliveCar.clear();
-    for(int x = 0; x<2; x++){
+    for(int x = 0; x<100; x++){
         car.emplace_back(*map->startPos, *map->startRot, map->map_points, map->map_check);
         aliveCar.push_back(x);
     }
@@ -34,15 +34,15 @@ void retrySim(){
     NeuralNetwork bestSavedNN = bestCar->nn;
     for(int i = 0; i<car.size(); i++){
 //        if(i < car.size()/3*2) {
-//            car.at(i).nn = bestSavedNN;
-//
-//            if (i != 0) {
-//                car.at(i).nn.Mutate(0.05f + 0.35f * float(float(i) / car.size()));
-//            }
+            car.at(i).nn = bestSavedNN;
+
+            if (i != 0) {
+                car.at(i).nn.Mutate(0.30f * float(float(i) / car.size()));
+            }
 //        } else {
 //            car.at(i).nn.Randomize();
 //        }
-        car.at(i).nn.Randomize();
+//        car.at(i).nn.Randomize();
 
         car.at(i).ResetValues(*map->startPos, *map->startRot, true);
     }
@@ -91,6 +91,8 @@ void Render(){
 void smallRender(){
     BeginDrawing();
     ClearBackground(BLACK);
+    DrawText(TextFormat("%i", GetFPS()), 6, 6, 20, WallColor);
+
     EndDrawing();
 }
 
@@ -112,13 +114,8 @@ int main(){
     bool display = true;
     while (!WindowShouldClose())
     {
-        if(!display) {
-            delta = 1.0f/40.0f;
-        }else{
-            delta = GetFrameTime();
-        }
+        delta = GetFrameTime();
 
-//        delta = 1.0f/40.0f;
         if(!display) {
             for(Car & cCar:car){
                 cCar.Update(delta);
