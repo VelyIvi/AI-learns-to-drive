@@ -30,7 +30,7 @@ Sensor::Sensor(std::vector<std::vector<Vector2>>* w){
 }
 
 Sensor ::~Sensor (){
-    std::cout<<"Called Sensor destructor"<<"\n";
+//    std::cout<<"Called Sensor destructor"<<"\n";
 }
 
 void Sensor ::Update(Vector2& position, float& angle){

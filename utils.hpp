@@ -1,19 +1,12 @@
+#include <random>
 
 float get_random(float start, float end){
-
     std::random_device eng;
     static std::uniform_real_distribution<> dis(start, end); // rage 0 - 1
-    return dis(eng);
+    return float(dis(eng));
 }
 
-int sizeArray(const float arr[]){
-    return sizeof(arr)/sizeof(arr[0]);
-}
-int sizeArray(const int arr[]){
-    return sizeof(arr)/sizeof(arr[0]);
-}
-
-Vector2 lerp(Vector2 A, Vector2 B, double t){
+Vector2 lerp(Vector2 A, Vector2 B, float t){
     return Vector2{float(A.x + (B.x-A.x)*t), float(A.y + (B.y-A.y)*t)};
 }
 

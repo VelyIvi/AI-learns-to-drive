@@ -1,34 +1,28 @@
 class AiGrid{
 private:
     int maxX, maxY;
-    float* table;
 public:
-    AiGrid(int mX, int mY);
+    std::vector<float> table;
+    AiGrid(int maxX, int maxY);
     ~AiGrid();
     float& at(int x, int y);
     void randomizeWeights();
 };
 
-AiGrid::~AiGrid() {
-    delete table;
-    table = nullptr;
-}
+AiGrid::~AiGrid() = default;
 
 AiGrid::AiGrid(int maxX, int maxY) {
-    table = new float[maxX*maxY];
+    table = std::vector<float>(maxX*maxY);
     this->maxX = maxX;
     this->maxY = maxY;
 }
 
 float& AiGrid::at(int x, int y){
-    if(x < maxX && y < maxY){
-        return table[int(y * maxX + x)];
-    }
-    throw std::invalid_argument("AiGrid::Invalid value::Value out of range");
+    return table.at(int(y * maxX + x));
 }
 
 void AiGrid::randomizeWeights() {
-    for(int i = 0; i<maxX*maxY; i++){
-        table[i] = get_random(-1, 1);
+    for(float & currentValue : table){
+        currentValue = get_random(-1, 1);
     }
 }

@@ -1,94 +1,138 @@
+#include <utility>
+
 #include "AiGrid.hpp"
 
+class Layer{
+public:
+    std::vector<float> input;
+    std::vector<float> output;
+    std::vector<float> bias;
 
-
-class Level{
+public:
     AiGrid grid;
-public:
-    float *input;
-    float *output;
-    float *bias;
-    int inputCount;
-    int outputCount;
-public:
-    Level();
-    Level(int inputCount, int outputCount);
-    ~Level();
+    Layer(int inputCount, int outputCount);
+    ~Layer();
     void Randomize();
 
-    void FeedForward(float givenInputs[]);
+    std::vector<float> feedForwardLinear(std::vector<float> givenInputs);
 
+    std::vector<float> feedForwardSigmoid(std::vector<float> givenInputs);
 };
 
-void Level::Randomize() {
+void Layer::Randomize() {
     grid.randomizeWeights();
-    for(int i = 0; i< sizeArray(bias); i++){
-        bias[i] = get_random(-1, 1);
+    for(float & currentBias : bias){
+        currentBias = get_random(-1, 1);
     }
 }
 
-Level::Level():grid(0,0){}
+Layer::Layer(int inputCount, int outputCount) : grid(inputCount, outputCount){
 
-Level::Level(int inputCount, int outputCount) : grid(inputCount, outputCount){
-    input = new float[inputCount];
-    output = new float[outputCount];
-    bias = new float[outputCount];
-    this->inputCount = inputCount;
-    this->outputCount = outputCount;
+    input = std::vector<float>(inputCount);
 
+    output = std::vector<float>(outputCount);
+    bias = std::vector<float>(outputCount);
     Randomize();
 }
 
-Level::~Level(){
-    delete[] input;
-    delete[] output;
-    delete[] bias;
-
-    input = nullptr;
-    output = nullptr;
-    bias = nullptr;
-
-    std::cout<<"Called Neural Network Level destructor\n";
+Layer::~Layer(){
+//    std::cout<<"Called Layer destructor\n";
 }
 
-void Level::FeedForward(float givenInputs[]) {
-
-    for(int appointInput = 0; appointInput < inputCount; appointInput++){
-        input[appointInput] = givenInputs[appointInput];
+std::vector<float> Layer::feedForwardLinear(std::vector<float> givenInputs) {
+    for(int appointInput = 0; appointInput < input.size(); appointInput++){
+        input.at(appointInput) = givenInputs.at(appointInput);
     }
-
-    for(int currentOutput = 0; currentOutput < outputCount; currentOutput++) {
+    
+    for(int currentOutput = 0; currentOutput < output.size(); currentOutput++) {
         float sum = 0;
-        for(int currentInput = 0; currentInput < inputCount; currentInput++){
-            sum+=input[currentInput]*grid.at(currentInput, currentOutput);
+        for(int currentInput = 0; currentInput < input.size(); currentInput++){
+            sum+=input.at(currentInput)*grid.at(currentInput, currentOutput);
         }
-        if(sum+bias[currentOutput]>0){
-            output[currentOutput] = 1;
+        if(sum+bias.at(currentOutput)>0){
+            output.at(currentOutput) = 1;
         } else {
-            output[currentOutput] = 0;
+            output.at(currentOutput) = 0;
         }
     }
-    for(int i = 0; i < outputCount; i++){
-        std::cout<<output[i]<<"  "<<"\n";
-    }
+    return output;
 }
 
-class NeuralNetwork{
-    Level* levels[];
+std::vector<float> Layer::feedForwardSigmoid(std::vector<float> givenInputs) {
+    for(int appointInput = 0; appointInput < input.size(); appointInput++){
+        input.at(appointInput) = givenInputs.at(appointInput);
+    }
+
+    for(int currentOutput = 0; currentOutput < output.size(); currentOutput++) {
+        float sum = 0;
+        for(int currentInput = 0; currentInput < input.size(); currentInput++){
+            sum+=input.at(currentInput)*grid.at(currentInput, currentOutput);
+        }
+        output.at(currentOutput) = 1.0 / (1.0 + exp(sum + bias.at(currentOutput)));
+    }
+
+    return output;
+}
+
+class NeuralNetwork {
 private:
-
+    std::vector<Layer> layers;
 public:
-    NeuralNetwork(int neuronCount[]);
-    ~NeuralNetwork():
+    explicit NeuralNetwork(std::vector<int> layerSizes);
+    void Mutate(float amount);
+    void Randomize();
+
+//    NeuralNetwork(const NeuralNetwork & copyNN);
+
+    std::vector<float> feedForward(std::vector<float> input);
+    std::vector<float> getOutput(std::vector<float> input);
 };
-NeuralNetwork::NeuralNetwork(int neuronCount[]) {
-    levels = new Level[int(sizeArray(neuronCount)-1)];
-    for(int i = 0; i< sizeArray(neuronCount)-1; i++){
-        levels[i] = Level(neuronCount[i], neuronCount[i+1]);
+
+void  NeuralNetwork::Randomize() {
+    for(Layer & currentLevel: layers){
+        currentLevel.Randomize();
+    }
+}
+
+void NeuralNetwork::Mutate(float amount = 1) {
+    for(Layer & currentLevel: layers){
+        for(float & currentBias: currentLevel.bias) {
+            currentBias = lerp(currentBias, get_random(-1,1), amount);
+        }
     }
 
+    for(Layer & currentLevel: layers){
+        for(float & currentValue: currentLevel.grid.table) {
+            currentValue = lerp(currentValue, get_random(-1,1), amount);
+        }
+    }
 }
 
-NeuralNetwork::~NeuralNetwork() {
 
+NeuralNetwork::NeuralNetwork(std::vector<int> layerSizes) {
+    if(layerSizes.size()<2)
+        throw std::invalid_argument("layerSizes must contain at least 2 elements");
+    for (int i = 0; i < layerSizes.size() - 1; i++) {
+        layers.emplace_back(layerSizes.at(i), layerSizes.at(i+1));
+    }
 }
+//NeuralNetwork::NeuralNetwork(const NeuralNetwork & copyNN) {
+//    std::cout<<"e\n";
+//}
+
+std::vector<float> NeuralNetwork::feedForward(std::vector<float> input) {
+    std::vector<float> currentOutput = std::move(input);
+    for (int i = 0;i<currentOutput.size();i++) {
+        if(i == currentOutput.size()-1) { // if not output layer
+            currentOutput = layers.at(i).feedForwardSigmoid(currentOutput);
+        } else {
+            currentOutput = layers.at(i).feedForwardLinear(currentOutput);
+        }
+    }
+    return currentOutput;
+}
+
+std::vector<float> NeuralNetwork::getOutput(std::vector<float> input) {
+    return feedForward(std::move(input));
+}
+
