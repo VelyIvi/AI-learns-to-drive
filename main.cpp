@@ -14,7 +14,10 @@ Car* bestCar;
 std::vector<Car> car;
 std::vector<int> aliveCar;
 
+int currentGeneration = 0;
 
+long long simTime = 0;
+long long currentSimTime = 0;
 void startSim(){
 //    std::cout<<"-STARTING SIMULATION-\n";
 
@@ -27,6 +30,8 @@ void startSim(){
     bestCar = &car.at(0);
 }
 void retrySim(){
+    currentGeneration++;
+    currentSimTime = 0;
 //    std::cout<<"-RETRYING SIMULATION-\n";
     for(int x = 0; x<car.size(); x++){
         aliveCar.push_back(x);
@@ -37,7 +42,7 @@ void retrySim(){
             car.at(i).nn = bestSavedNN;
 
             if (i != 0) {
-                car.at(i).nn.Mutate(0.30f * float(float(i) / car.size()));
+                car.at(i).nn.Mutate(0.25f * float(float(i) / car.size()));
             }
 //        } else {
 //            car.at(i).nn.Randomize();
@@ -63,12 +68,22 @@ void CheckSim(){
         if(!car.at(aliveCar.at(i)).alive){
             aliveCar.erase(aliveCar.begin()+i);
             return;
+        } else if(car.at(aliveCar.at(i)).laps>=3){
+            aliveCar.erase(aliveCar.begin()+i);
+            car.at(aliveCar.at(i)).alive = false;
+            return;
+
         }
     }
 
 
 }
+void GeneralInfo(){
+    DrawText(TextFormat("%i", GetFPS()), 6, 6, 20, WallColor);
+    DrawText(TextFormat("Current generation: %i", currentGeneration), 100, 6, 20, WHITE);
+    DrawText(TextFormat("Fastest car laps: %i", bestCar->laps), 100, 30, 20, WHITE);
 
+}
 
 void Render(){
     BeginDrawing();
@@ -84,14 +99,15 @@ void Render(){
         }
     }
 
-    DrawText(TextFormat("%i", GetFPS()), 6, 6, 20, WallColor);
+    GeneralInfo();
+
     EndDrawing();
 }
 
 void smallRender(){
     BeginDrawing();
     ClearBackground(BLACK);
-    DrawText(TextFormat("%i", GetFPS()), 6, 6, 20, WallColor);
+    GeneralInfo();
 
     EndDrawing();
 }
@@ -126,9 +142,14 @@ int main(){
             for(Car & cCar:car){
                 cCar.Update(delta);
             }
+            currentSimTime = currentSimTime + delta*3;
+            simTime = simTime + delta*3;
+
         }else{
             for(Car & cCar:car){
                 cCar.Update(delta);
+                currentSimTime = currentSimTime + delta;
+                simTime = simTime + delta;
             }
         }
 

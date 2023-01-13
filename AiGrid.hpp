@@ -1,7 +1,7 @@
 class AiGrid{
 private:
-    int maxX, maxY;
 public:
+    int maxX, maxY;
     std::vector<float> table;
     AiGrid(int maxX, int maxY);
     ~AiGrid();
@@ -18,7 +18,7 @@ AiGrid::AiGrid(int maxX, int maxY) {
 }
 
 float& AiGrid::at(int x, int y){
-    return table.at(int(y * maxX + x));
+    return table.at(y * maxX + x);
 }
 
 void AiGrid::randomizeWeights() {

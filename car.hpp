@@ -45,7 +45,7 @@ public:
     void DrawBest();
     void Update(float& delta);
     bool Collider(std::vector<std::vector<Vector2>>* array) const;
-    int CheckCollider(std::vector<std::vector<Vector2>>* array) const;
+    std::vector<int> CheckCollider(std::vector<std::vector<Vector2>>* array) const;
     std::vector<int> checkCollided;
     int points = 0;
     int laps = 0;
@@ -119,7 +119,7 @@ void Car::Update(float& delta){
 
     std::vector<float> AiInputs (nnLayerSizes.at(0));
     for(int i= 0; i<sensor.rayCount; i++){
-        AiInputs.at(i) = (sensor.readings.at(i).z/sensor.rayLength);
+        AiInputs.at(i) = (sensor.readings.at(i).z/sensor.rayLength*2-1); ////range -1 <-> 1
     }
 //    AiInputs.at(9) = speed/max_speed;
 
@@ -184,34 +184,37 @@ bool Car::Collider(std::vector<std::vector<Vector2>>* array) const{
     return false;
 }
 
-int Car::CheckCollider(std::vector<std::vector<Vector2>>* array) const{
+std::vector<int> Car::CheckCollider(std::vector<std::vector<Vector2>>* array) const{
     Vector2 lastArrayPoint = {-1,-1};
+    std::vector<int> collision = {};
     for(int x = 0; x<array->size(); x++){
         for(Vector2 & currentArrayPoint : array->at(x)){
             if(lastArrayPoint.x >= 0 && lastArrayPoint.y >= 0){
                 if (simpleIntersect(lastPos, position, lastArrayPoint, currentArrayPoint)){
-                    return x;
+                    collision.push_back(x);
                 }
             }
             lastArrayPoint = currentArrayPoint;
         }
         lastArrayPoint = {-1,-1};
     }
-    return -1;
+    return collision;
 }
 
 void Car::CheckCollisions(){
     if (Collider(wall)){
         alive = false;
     }
-    int CheckCollidedNum;
+    std::vector<int> CheckCollidedNum;
     CheckCollidedNum = CheckCollider(check);
-    if (0<=CheckCollidedNum){
-        std::sort(checkCollided.begin(), checkCollided.end());
-        if(!std::binary_search(checkCollided.begin(), checkCollided.end(), CheckCollidedNum)){
-            points++;
-            currentSecCheckpoint = 0;
-            checkCollided.push_back(CheckCollidedNum);
+    for(int & CheckCollidedCurrent: CheckCollidedNum) {
+        if (0 <= CheckCollidedCurrent) {
+            std::sort(checkCollided.begin(), checkCollided.end());
+            if (!std::binary_search(checkCollided.begin(), checkCollided.end(), CheckCollidedCurrent)) {
+                points++;
+                currentSecCheckpoint = 0;
+                checkCollided.push_back(CheckCollidedCurrent);
+            }
         }
     }
 

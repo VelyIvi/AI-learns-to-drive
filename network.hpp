@@ -2,6 +2,9 @@
 
 #include "AiGrid.hpp"
 
+double sigmoidSmaller(double x) {
+    return 2.0 / (1.0 + exp(-x)) - 0.5;
+}
 double sigmoid(double x) {
     return 1.0 / (1.0 + exp(-x));
 }
@@ -9,6 +12,13 @@ double sigmoid(double x) {
 double sigmoid_derivative(double x) {
     return x * (1.0 - x);
 }
+
+
+double tanh(double x) {
+    return (exp(2*x)-1)/(exp(2*x)+1);
+}
+
+
 
 class Layer{
 public:
@@ -47,12 +57,16 @@ Layer::~Layer(){
 //    std::cout<<"Called Layer destructor\n";
 }
 std::vector<float> Layer::feedForwardSigmoid(std::vector<float> givenInputs) {
+    for(int appointInput = 0; appointInput < input.size(); appointInput++){
+        input.at(appointInput) = givenInputs.at(appointInput);
+    }
+
     for(int currentOutput = 0; currentOutput < output.size(); currentOutput++) {
         float sum = 0;
         for(int currentInput = 0; currentInput < input.size(); currentInput++){
             sum+=input.at(currentInput)*grid.at(currentInput, currentOutput);
         }
-        output.at(currentOutput) = sigmoid(sum + bias.at(currentOutput));
+        output.at(currentOutput) = sigmoidSmaller(sum + bias.at(currentOutput));
     }
     return output;
 }
@@ -124,8 +138,8 @@ NeuralNetwork::NeuralNetwork(std::vector<int> layerSizes) {
 std::vector<float> NeuralNetwork::feedForward(std::vector<float> input) {
     std::vector<float> currentOutput = std::move(input);
     for (int i = 0;i<layers.size();i++) {
-        if(i == layers.size()-1) { // if not output layer
-            currentOutput = layers.at(i).feedForwardLinear(currentOutput);
+        if(i != layers.size()-1) { // if not output layer
+            currentOutput = layers.at(i).feedForwardSigmoid(currentOutput);
         } else {
             currentOutput = layers.at(i).feedForwardLinear(currentOutput);
         }
