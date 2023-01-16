@@ -1,4 +1,5 @@
 #include "utils.hpp"
+//#include "simulation.hpp"
 
 class Sensor {
 private:
@@ -20,6 +21,8 @@ public:
 
     void Update(Vector2& position, float& angle);
     void Draw(Vector2& position);
+    void Draw(Vector2& position, Simulation *canvas);
+
 
 };
 
@@ -79,6 +82,21 @@ void Sensor::Draw(Vector2& position){
             DrawCircle(readingsVector.x, readingsVector.y, 3, RaycastColor);
         } else {
             DrawLineV(position, {rays.at(i).z, rays.at(i).w}, RaycastColor);
+        }
+        i++;
+    }
+}
+
+void Sensor::Draw(Vector2 &position, Simulation *canvas) {
+    int i = 0;
+    for(Vector4 readingsVector : readings){
+        if(readingsVector.w == 1){
+            canvas->DrawLineVSim({readingsVector.x, readingsVector.y}, {rays.at(i).z, rays.at(i).w}, RaycastShadeColor);
+
+            canvas->DrawLineVSim(position, {readingsVector.x, readingsVector.y}, RaycastColor);
+            canvas->DrawCircleVSim({readingsVector.x, readingsVector.y}, 3, RaycastColor);
+        } else {
+            canvas->DrawLineVSim(position, {rays.at(i).z, rays.at(i).w}, RaycastColor);
         }
         i++;
     }

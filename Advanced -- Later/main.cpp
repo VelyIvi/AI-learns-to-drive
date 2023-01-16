@@ -4,6 +4,7 @@
 #include "car.h"
 #include "ui.h"
 
+Canvas * canvas = new Canvas();
 Car car;
 
 Canvas simulation (0, Vector2{1500, 800});

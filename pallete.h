@@ -12,7 +12,9 @@
 #define CheckColor (Color) {238, 255, 46, 255}
 
 
-#define BackGroundColor (Color) {14, 7, 48, 255}
+//#define BackGroundColor (Color) {14, 7, 48, 255}
+#define BackGroundColor (Color) {7, 0, 41, 255}
+
 #define GridColor (Color) {76, 14, 130, 255}
 
 

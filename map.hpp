@@ -21,10 +21,15 @@ struct Map{
         ~Map();
 
         void Draw() const;
+        void Draw(Simulation canvas);
+
 
         void Save_To_Json();
         void Load_From_Json() const;
+
 };
+
+void drawArrayMapPoints(std::vector<std::vector<Vector2>> *const pVector, Color color, Simulation simulation);
 
 Map::Map(){
 }
@@ -57,6 +62,23 @@ void drawArrayMapPoints(std::vector<std::vector<Vector2>>* vec, Color color){
 void Map::Draw() const{
     drawArrayMapPoints(map_points, WallColor);
     drawArrayMapPoints(map_check, CheckColor);
+}
+void Map::Draw(Simulation canvas){
+    drawArrayMapPoints(map_points, WallColor, canvas);
+    drawArrayMapPoints(map_check, CheckColor, canvas);
+}
+
+void drawArrayMapPoints(std::vector<std::vector<Vector2>> *const vec, Color color, Simulation canvas) {
+    if (!vec->empty()){
+        for(auto & i : *vec){
+            if (!i.empty()){
+                for(int j=0; j<i.size()-1; j++){
+                    canvas.DrawLineVSim(i.at(j), i.at(j+1), color);
+                    // DrawCircle(map_points->at(i).at(j).x, map_points->at(i).at(j).y, 1, color);
+                }
+            }
+        }
+    }
 }
 
 

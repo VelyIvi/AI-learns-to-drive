@@ -1,4 +1,3 @@
-#include "controls.hpp"
 #include "sensor.hpp"
 #include "network.hpp"
 
@@ -42,6 +41,8 @@ public:
 
     Rectangle getRec();
     void Draw();
+    void Draw(Simulation * canvas);
+
     void DrawBest();
     void Update(float& delta);
     bool Collider(std::vector<std::vector<Vector2>>* array) const;
@@ -53,6 +54,8 @@ public:
 
     float currentSecCheckpoint = 0;
     const float maxSecNoCheckpoint = 2;
+
+    void DrawBest(Simulation *canvas);
 };
 
 Car::Car(Vector2 pos, float rot, std::vector<std::vector<Vector2>> *w, std::vector<std::vector<Vector2>> *c) : sensor(w), nn(this->nnLayerSizes){
@@ -100,6 +103,18 @@ void Car::DrawBest(){
 
 }
 
+void Car::DrawBest(Simulation* canvas){
+    if(alive){
+//        sensor.Draw(position);
+        sensor.Draw(position, canvas);
+        canvas->DrawRectangleProSim(getRec(), Vector2{size.x/2, size.y/2}, rotation, CarBestColor);
+    } else {
+        canvas->DrawRectangleProSim(getRec(), Vector2{size.x/2, size.y/2}, rotation, CarBestDeadColor);
+    }
+    canvas->DrawCircleVSim(position, 3, RED);
+
+}
+
 void Car::Draw(){
     if(alive){
 //        sensor.Draw(position);
@@ -108,6 +123,16 @@ void Car::Draw(){
         DrawRectanglePro(getRec(), Vector2{size.x/2, size.y/2}, rotation, CarDeadColor);
     }
 }
+
+void Car::Draw(Simulation* canvas){
+    if(alive){
+        canvas->DrawRectangleProSim(getRec(), Vector2{size.x/2, size.y/2}, rotation, CarColor);
+    } else {
+        canvas->DrawRectangleProSim(getRec(), Vector2{size.x/2, size.y/2}, rotation, CarDeadColor);
+    }
+}
+
+
 
 void Car::Update(float& delta){
 

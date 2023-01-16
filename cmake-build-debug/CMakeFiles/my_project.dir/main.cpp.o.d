@@ -135,6 +135,8 @@ CMakeFiles/my_project.dir/main.cpp.o: \
  /usr/include/c++/12.2.0/bits/basic_ios.tcc \
  /usr/include/c++/12.2.0/bits/ostream.tcc /usr/include/c++/12.2.0/istream \
  /usr/include/c++/12.2.0/bits/istream.tcc \
+ /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/pallete.h \
+ /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/simulation.hpp \
  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/map.hpp \
  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/nlohmann/json.hpp \
  /usr/include/c++/12.2.0/algorithm \
@@ -206,13 +208,11 @@ CMakeFiles/my_project.dir/main.cpp.o: \
  /usr/include/libintl.h /usr/include/c++/12.2.0/bits/codecvt.h \
  /usr/include/c++/12.2.0/bits/locale_facets_nonio.tcc \
  /usr/include/c++/12.2.0/bits/locale_conv.h \
- /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/pallete.h \
  /usr/include/c++/12.2.0/fstream \
  /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/basic_file.h \
  /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/c++io.h \
  /usr/include/c++/12.2.0/bits/fstream.tcc \
  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/car.hpp \
- /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/controls.hpp \
  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/sensor.hpp \
  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/utils.hpp \
  /usr/include/c++/12.2.0/random /usr/include/c++/12.2.0/bits/random.h \

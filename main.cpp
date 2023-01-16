@@ -1,14 +1,20 @@
 #include <raylib.h>
 #include <vector>
 #include <iostream>
+#include "pallete.h"
+
+#include "simulation.hpp"
+
 
 #include "map.hpp"
 #include "car.hpp"
-#include "pallete.h"
+
 
 #define PI 3.14159265
 
 Map* map = new Map();
+Vector2 simSize = {1500,800};
+Simulation* sim = new Simulation(simSize);
 
 Car* bestCar;
 std::vector<Car> car;
@@ -19,7 +25,6 @@ int currentGeneration = 0;
 long long simTime = 0;
 long long currentSimTime = 0;
 void startSim(){
-//    std::cout<<"-STARTING SIMULATION-\n";
 
     car.clear();
     aliveCar.clear();
@@ -85,17 +90,34 @@ void GeneralInfo(){
 
 }
 
+void Startup(){
+
+    SetWindowState(FLAG_VSYNC_HINT);
+//    SetTargetFPS(60);
+
+    map->Load_From_Json();
+
+    InitWindow(1500, 800, "/C++/ Ai Learns To Drive - By Ivan Velychko");
+    startSim();
+}
+
 void Render(){
     BeginDrawing();
     ClearBackground(BackGroundColor);
+//    sim->Update();
+    Vector2 screenSize = Vector2{float(GetScreenWidth()), float(GetScreenHeight())};
+    sim->Draw(Vector2{float(screenSize.x*0.005),float(screenSize.y*0.005)}, screenSize, Vector2{0.6,0.6});
+    map->Draw(*sim);
 
-    map->Draw();
     for(Car & cCar:car){
         if(&cCar == bestCar){
-            cCar.DrawBest();
+//            cCar.DrawBest();
+            cCar.DrawBest(sim);
 
         } else {
-            cCar.Draw();
+//            cCar.Draw();
+            cCar.Draw(sim);
+
         }
     }
 
@@ -107,25 +129,18 @@ void Render(){
 void smallRender(){
     BeginDrawing();
     ClearBackground(BLACK);
-    GeneralInfo();
+    Vector2 screenSize = Vector2{float(GetScreenWidth()), float(GetScreenHeight())};
+//    sim->Draw(Vector2{float(screenSize.x*0.005),float(screenSize.y*0.005)}, screenSize, Vector2{0.8,0.8});
 
+    GeneralInfo();
     EndDrawing();
 }
 
-void Startup(){
-    SetWindowState(FLAG_VSYNC_HINT);
-//    SetTargetFPS(60);
 
-    map->Load_From_Json();
-
-    InitWindow(1500, 800, "/C++/ Ai Learns To Drive - By Ivan Velychko");
-    startSim();
-    Render();
-
-}
 
 int main(){
     Startup();
+    Render();
     float delta;
     bool display = true;
     while (!WindowShouldClose())
