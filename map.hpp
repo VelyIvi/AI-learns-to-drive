@@ -21,7 +21,7 @@ struct Map{
         ~Map();
 
         void Draw() const;
-        void Draw(Simulation canvas);
+        void Draw(Simulation& canvas);
 
 
         void Save_To_Json();
@@ -63,7 +63,7 @@ void Map::Draw() const{
     drawArrayMapPoints(map_points, WallColor);
     drawArrayMapPoints(map_check, CheckColor);
 }
-void Map::Draw(Simulation canvas){
+void Map::Draw(Simulation& canvas){
     drawArrayMapPoints(map_points, WallColor, canvas);
     drawArrayMapPoints(map_check, CheckColor, canvas);
 }

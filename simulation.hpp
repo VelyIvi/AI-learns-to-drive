@@ -20,6 +20,10 @@ public:
     void DrawCircleVSim(Vector2 pos, float radius, Color color);
 
     void DrawLineVSim(Vector2 startPos, Vector2 endPos, Color color);
+
+    void DrawTextSim(const char *text, int posX, int posY, int fontSize, Color color);
+
+    bool GuiButtonSim(Rectangle rectangle, const char *string);
 };
 
 
@@ -27,8 +31,8 @@ public:
 
 void Simulation::Draw(Vector2 pos, Vector2 screensize, Vector2 max_prec) {
     position = pos;
-    float XSize = (screensize.x*max_prec.x-position.x)/SimulationSize.x;
-    float YSize = (screensize.y*max_prec.y-position.y)/SimulationSize.y;
+    float XSize = (screensize.x*max_prec.x)/SimulationSize.x;
+    float YSize = (screensize.y*max_prec.y)/SimulationSize.y;
     if (XSize < YSize){
         proc = XSize;
     } else {
@@ -37,7 +41,7 @@ void Simulation::Draw(Vector2 pos, Vector2 screensize, Vector2 max_prec) {
 
 ;
     CurrentSize = {SimulationSize.x*proc - margin*2, SimulationSize.y*proc - margin*2};
-
+    DrawRectangle(position.x, position.y, screensize.x*max_prec.x, screensize.y*max_prec.y, BLACK);
     DrawRectangle(margin+position.x, margin+position.y, CurrentSize.x, CurrentSize.y, backgroundColor);
     DrawRectangleLines(position.x, position.y, SimulationSize.x*proc, SimulationSize.y*proc, WHITE);                   // Draw rectangle outline
 }
@@ -53,3 +57,12 @@ void Simulation::DrawCircleVSim(Vector2 pos, float radius, Color color) {
 void Simulation::DrawLineVSim(Vector2 startPos, Vector2 endPos, Color color) {
     DrawLineV(Vector2 {margin+position.x+startPos.x*proc, margin+position.y+startPos.y*proc},Vector2 {margin+position.x+endPos.x*proc, margin+position.y+endPos.y*proc}, color);
 }
+
+void Simulation::DrawTextSim(const char *text, int posX, int posY, int fontSize, Color color){
+    DrawText(text, margin+position.x+posX*proc, margin+position.y+posY*proc, fontSize*proc, color);
+}
+
+//bool Simulation::GuiButtonSim(Rectangle rectangle, const char * string) {
+//    std::cout<<"e\n";
+//    return GuiButtonSim((Rectangle){ margin+position.x+rectangle.x*proc,margin+position.y+rectangle.y*proc, rectangle.width*proc, rectangle.height*proc }, string);
+//}
