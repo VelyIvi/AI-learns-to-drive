@@ -1,5 +1,3 @@
-#include <utility>
-
 #include "AiGrid.hpp"
 
 double sigmoidSmaller(double x) {
@@ -17,15 +15,11 @@ double sigmoid_derivative(double x) {
 double tanh(double x) {
     return (exp(2*x)-1)/(exp(2*x)+1);
 }
-
-
-
 class Layer{
 public:
     std::vector<float> input;
     std::vector<float> output;
     std::vector<float> bias;
-
 public:
     AiGrid grid;
     Layer(int inputCount, int outputCount);
@@ -91,8 +85,8 @@ std::vector<float> Layer::feedForwardLinear(std::vector<float> givenInputs) {
 }
 class NeuralNetwork {
 private:
-    std::vector<Layer> layers;
 public:
+    std::vector<Layer> layers;
     explicit NeuralNetwork(std::vector<int> layerSizes);
     void Mutate(float amount);
     void Randomize();

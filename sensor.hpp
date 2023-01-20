@@ -1,4 +1,3 @@
-#include "utils.hpp"
 //#include "simulation.hpp"
 
 class Sensor {

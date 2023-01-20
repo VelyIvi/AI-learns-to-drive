@@ -5,12 +5,16 @@
 #include <vector>
 #include <iostream>
 #include "pallete.h"
+#include "ColorMixer.hpp"
+#include <random>
+#include "utils.hpp"
+#include <algorithm>
+#include "network.hpp"
 
 #include "simulation.hpp"
-
-
-#include "map.hpp"
 #include "car.hpp"
+#include "map.hpp"
+
 
 
 //#define PI 3.14159265
@@ -22,7 +26,7 @@ Simulation sim(simSize);
 Vector2 genInfoSize = {300,150};
 Simulation info(genInfoSize);
 
-Vector2 nnInfoSize = {500,900};
+Vector2 nnInfoSize = {500,600};
 Simulation nnInfo(nnInfoSize);
 
 Vector2 UISize = {450,150};
@@ -126,15 +130,20 @@ void GeneralInfo(){
     info.DrawTextSim(TextFormat("Sim total time: %01.0f", simTime), 6, 102, 20, WHITE);
     info.DrawTextSim(TextFormat("Gen time: %01.0f", currentSimTime), 6, 126, 20, WHITE);
 }
-
+int CenteredCar = 0;
+bool CenteredCarTyping = false;
+bool CenterBest = true;
+bool Pause = true;
 void UIWindow(){
     GuiSetStyle(DEFAULT, TEXT_SIZE, 12*UI.proc);
     GuiSetStyle(BUTTON, TEXT_ALIGNMENT, TEXT_ALIGN_CENTER);
 //    GuiSetStyle(, TEXT_ALIGNMENT, TEXT_ALIGN_CENTER);
 
-    if (GuiButton((Rectangle){ UI.margin+UI.position.x+5*UI.proc,UI.margin+UI.position.y+5*UI.proc, 60*UI.proc, 30*UI.proc}, "Start Game")) {
-        std::cout<<"button :>\n";
-    }
+//    if (GuiButton((Rectangle){ UI.margin+UI.position.x+5*UI.proc,UI.margin+UI.position.y+5*UI.proc, 60*UI.proc, 30*UI.proc}, "Start Game")) {
+//        std::cout<<"button :>\n";
+//    }
+    Pause = GuiCheckBox((Rectangle){UI.margin+UI.position.x+50*UI.proc,UI.margin+UI.position.y+float(12.5)*UI.proc, 15*UI.proc, 15*UI.proc}, "Update", Pause);
+
     if (GuiButton((Rectangle){ UI.margin+UI.position.x+5*UI.proc,UI.margin+UI.position.y+40*UI.proc, 60*UI.proc, 30*UI.proc}, "Start Game")) {
         std::cout<<"button :>\n";
     }
@@ -145,9 +154,29 @@ void UIWindow(){
         ResetGen();
     }
 
-    mutationValue = GuiSliderBar((Rectangle){ UI.margin+UI.position.x+120*UI.proc, UI.margin+UI.position.y+5*UI.proc, 120*UI.proc, 30*UI.proc}, "Mutation", TextFormat("%0.2f", mutationValue), mutationValue, 0, 1.00);
 
-    DrawLineV({UI.margin+UI.position.x+5*UI.proc, UI.margin+UI.position.y+74*UI.proc}, {UI.margin+UI.position.x+65*UI.proc, UI.margin+UI.position.y+74*UI.proc}, WHITE);
+    //layer2
+    if (GuiButton((Rectangle){ UI.margin+UI.position.x+70*UI.proc,UI.margin+UI.position.y+80*UI.proc, 60*UI.proc, 20*UI.proc}, "Full Reset")) {
+        startSim();
+    }
+//    if (GuiButton((Rectangle){ UI.margin+UI.position.x+70*UI.proc,UI.margin+UI.position.y+105*UI.proc, 60*UI.proc, 15*UI.proc}, "Full Reset")) {
+//        startSim();
+//    }
+//    if (GuiButton((Rectangle){ UI.margin+UI.position.x+70*UI.proc,UI.margin+UI.position.y+130*UI.proc, 60*UI.proc, 15*UI.proc}, "Full Reset")) {
+//        startSim();
+//    }
+
+    mutationValue = GuiSliderBar((Rectangle){ UI.margin+UI.position.x+120*UI.proc, UI.margin+UI.position.y+5*UI.proc, 120*UI.proc, 30*UI.proc}, "Mutation", TextFormat("%0.2f", mutationValue), mutationValue, 0, 1.00);
+    GuiSetStyle(SPINNER, STATE_DISABLED, true);
+
+    if(!CenterBest)
+        if (GuiSpinner((Rectangle){ UI.margin+UI.position.x+120*UI.proc,UI.margin+UI.position.y+40*UI.proc, 90*UI.proc, 15*UI.proc }, "Selected", &CenteredCar, 0, car.size() - 1, CenteredCarTyping)) CenteredCarTyping = !CenteredCarTyping;
+    GuiSetStyle(CHECKBOX, TEXT_ALIGNMENT, TEXT_ALIGN_LEFT);
+    CenterBest = GuiCheckBox((Rectangle){UI.margin + UI.position.x + 137 * UI.proc, UI.margin + UI.position.y + 55 * UI.proc, 15 * UI.proc, 15 * UI.proc }, "Select Best", CenterBest);
+
+    DrawLineV({UI.margin+UI.position.x+5*UI.proc, UI.margin+UI.position.y+77*UI.proc}, {UI.margin+UI.position.x+67*UI.proc, UI.margin+UI.position.y+77*UI.proc}, WHITE);
+    DrawLineV({UI.margin+UI.position.x+67*UI.proc, UI.margin+UI.position.y+77*UI.proc}, {UI.margin+UI.position.x+67*UI.proc, UI.margin+UI.position.y+145*UI.proc}, WHITE);
+
 }
 
 void Startup(){
@@ -173,12 +202,10 @@ void Render(){
     for(Car & cCar:car){
         if(&cCar == bestCar){
             cCar.DrawBest(sim);
-        } else if(&cCar == &car.at(0)) {
+        } else if(&cCar == &car.at(0) && currentGeneration!=0) {
             cCar.Draw(sim, GREEN,DARKGREEN);
         }else{
-//            cCar.Draw();
             cCar.Draw(sim);
-
         }
     }
 //    info->Draw(Vector2{float(screenSize.x*0.71),float(screenSize.y*0.005)}, screenSize, Vector2{0.285,0.285});
@@ -189,7 +216,7 @@ void Render(){
     GeneralInfo();
     UIWindow();
 
-
+    nnInfo.DrawNN(bestCar->nn);
     EndDrawing();
 }
 
@@ -212,28 +239,30 @@ int main(){
     bool display = true;
     while (!WindowShouldClose())
     {
-        delta = GetFrameTime();
+        if(Pause) {
+            delta = GetFrameTime();
 
-        if(!display) {
-            for(Car & cCar:car){
-                cCar.Update(delta);
-            }
-            for(Car & cCar:car){
-                cCar.Update(delta);
-            }
-            for(Car & cCar:car){
-                cCar.Update(delta);
-            }
-            currentSimTime = currentSimTime + delta*3;
-            simTime = simTime + delta*3;
+            if (!display) {
+                for (Car &cCar: car) {
+                    cCar.Update(delta);
+                }
+                for (Car &cCar: car) {
+                    cCar.Update(delta);
+                }
+                for (Car &cCar: car) {
+                    cCar.Update(delta);
+                }
+                currentSimTime = currentSimTime + delta * 3;
+                simTime = simTime + delta * 3;
 
-        }else{
-            for(Car & cCar:car){
-                cCar.Update(delta);
-            }
-            currentSimTime = currentSimTime + delta;
-            simTime = simTime + delta;
+            } else {
+                for (Car &cCar: car) {
+                    cCar.Update(delta);
+                }
+                currentSimTime = currentSimTime + delta;
+                simTime = simTime + delta;
 
+            }
         }
 
         realTime = realTime + delta;
@@ -242,17 +271,12 @@ int main(){
             smallRender();
         }else{
             Render();
-
         }
         CheckSim();
 
         if(IsKeyPressed(KEY_SPACE)){
             display = !display;
         }
-
-
-
-
     }
 
     delete map;

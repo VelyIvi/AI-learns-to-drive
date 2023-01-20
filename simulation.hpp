@@ -1,7 +1,8 @@
 #include <raylib.h>
+//#include "network.hpp"
 
 class Simulation {
-private:
+protected:
     Vector2 SimulationSize;
 public:
     Vector2 CurrentSize;
@@ -24,6 +25,8 @@ public:
     void DrawTextSim(const char *text, int posX, int posY, int fontSize, Color color);
 
     bool GuiButtonSim(Rectangle rectangle, const char *string);
+
+    void DrawNN(NeuralNetwork & network);
 };
 
 
@@ -66,3 +69,28 @@ void Simulation::DrawTextSim(const char *text, int posX, int posY, int fontSize,
 //    std::cout<<"e\n";
 //    return GuiButtonSim((Rectangle){ margin+position.x+rectangle.x*proc,margin+position.y+rectangle.y*proc, rectangle.width*proc, rectangle.height*proc }, string);
 //}
+
+//
+std::vector<char *> outputEmotes = {"LEFT","RIGHT","FORWARD","REVERSE"};
+void Simulation::DrawNN(NeuralNetwork & network){
+    const int mar = 100;
+    int layerSize = network.layers.size();
+    float yDisplacement = (SimulationSize.y-mar)/(layerSize);
+
+    for(int y = 0; y<layerSize; y++){
+        Layer & layer = network.layers.at(y);
+        float xDisplacement = (SimulationSize.x-mar)/(layer.input.size()-1);
+        for(int x = 0; x<layer.input.size(); x++){
+            DrawCircleVSim(Vector2{x*xDisplacement +mar/2, SimulationSize.y -(y * yDisplacement +mar/2)}, 20,
+                           ColorMixLin(BLACK, YELLOW, (layer.input.at(x)+1)/2));
+        }
+    }
+    for(int l = 0; l<network.layers.at(layerSize-1).output.size(); l++){
+        Layer & layer = network.layers.at(layerSize-1);
+        float xDisplacement = (SimulationSize.x-mar)/(layer.output.size()-1);
+        DrawCircleVSim(Vector2{l*xDisplacement +mar/2, SimulationSize.y -(layerSize * yDisplacement +mar/2)}, 20, ColorMixLin(BLACK, YELLOW, (layer.output.at(l))));
+        if(l < network.layers.at(layerSize-1).output.size()){
+            DrawTextSim(outputEmotes.at(l), l*xDisplacement +mar/2, SimulationSize.y -(layerSize * yDisplacement +mar/2)-40,10,WHITE);
+        }
+    }
+}

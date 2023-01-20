@@ -1,5 +1,4 @@
 #include "sensor.hpp"
-#include "network.hpp"
 
 
 //Controls controls;
@@ -162,7 +161,7 @@ void Car::Update(float& delta){
 
     std::vector<float> AiInputs (nnLayerSizes.at(0));
     for(int i= 0; i<sensor.rayCount; i++){
-        AiInputs.at(i) = (sensor.readings.at(i).z/sensor.rayLength*2-1); ////range -1 <-> 1
+        AiInputs.at(i) = -(sensor.readings.at(i).z/sensor.rayLength*2-1); ////range -1 <-> 1
     }
 //    AiInputs.at(9) = speed/max_speed;
 

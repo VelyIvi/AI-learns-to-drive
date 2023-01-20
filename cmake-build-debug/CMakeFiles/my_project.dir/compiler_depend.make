@@ -205,16 +205,29 @@ CMakeFiles/my_project.dir/main.cpp.o: /home/ivi/CodeLocal/Projects/AI-learns-to-
   /usr/include/c++/12.2.0/istream \
   /usr/include/c++/12.2.0/bits/istream.tcc \
   /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/pallete.h \
-  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/simulation.hpp \
-  /usr/include/raylib.h \
-  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/map.hpp \
-  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/nlohmann/json.hpp \
+  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/ColorMixer.hpp \
+  /usr/include/c++/12.2.0/random \
+  /usr/include/c++/12.2.0/limits \
+  /usr/include/c++/12.2.0/bits/random.h \
+  /usr/include/c++/12.2.0/bits/uniform_int_dist.h \
+  /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/opt_random.h \
+  /usr/include/c++/12.2.0/bits/random.tcc \
+  /usr/include/c++/12.2.0/numeric \
+  /usr/include/c++/12.2.0/bits/stl_numeric.h \
+  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/utils.hpp \
   /usr/include/c++/12.2.0/algorithm \
   /usr/include/c++/12.2.0/bits/stl_algo.h \
   /usr/include/c++/12.2.0/bits/algorithmfwd.h \
   /usr/include/c++/12.2.0/bits/stl_heap.h \
   /usr/include/c++/12.2.0/bits/stl_tempbuf.h \
-  /usr/include/c++/12.2.0/bits/uniform_int_dist.h \
+  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/network.hpp \
+  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/AiGrid.hpp \
+  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/simulation.hpp \
+  /usr/include/raylib.h \
+  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/car.hpp \
+  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/sensor.hpp \
+  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/map.hpp \
+  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/nlohmann/json.hpp \
   /usr/include/c++/12.2.0/cstddef \
   /usr/include/c++/12.2.0/functional \
   /usr/include/c++/12.2.0/tuple \
@@ -266,10 +279,7 @@ CMakeFiles/my_project.dir/main.cpp.o: /home/ivi/CodeLocal/Projects/AI-learns-to-
   /usr/include/c++/12.2.0/version \
   /usr/include/c++/12.2.0/cassert \
   /usr/include/assert.h \
-  /usr/include/c++/12.2.0/limits \
   /usr/include/c++/12.2.0/cstring \
-  /usr/include/c++/12.2.0/numeric \
-  /usr/include/c++/12.2.0/bits/stl_numeric.h \
   /usr/include/c++/12.2.0/iomanip \
   /usr/include/c++/12.2.0/locale \
   /usr/include/c++/12.2.0/bits/locale_facets_nonio.h \
@@ -283,27 +293,8 @@ CMakeFiles/my_project.dir/main.cpp.o: /home/ivi/CodeLocal/Projects/AI-learns-to-
   /usr/include/c++/12.2.0/fstream \
   /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/basic_file.h \
   /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/c++io.h \
-  /usr/include/c++/12.2.0/bits/fstream.tcc \
-  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/car.hpp \
-  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/sensor.hpp \
-  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/utils.hpp \
-  /usr/include/c++/12.2.0/random \
-  /usr/include/c++/12.2.0/bits/random.h \
-  /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/opt_random.h \
-  /usr/include/c++/12.2.0/bits/random.tcc \
-  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/network.hpp \
-  /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/AiGrid.hpp
+  /usr/include/c++/12.2.0/bits/fstream.tcc
 
-
-/home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/AiGrid.hpp:
-
-/usr/include/c++/12.2.0/bits/random.tcc:
-
-/usr/include/c++/12.2.0/random:
-
-/home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/sensor.hpp:
-
-/home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/car.hpp:
 
 /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/basic_file.h:
 
@@ -316,8 +307,6 @@ CMakeFiles/my_project.dir/main.cpp.o: /home/ivi/CodeLocal/Projects/AI-learns-to-
 /usr/include/c++/12.2.0/locale:
 
 /usr/include/c++/12.2.0/iomanip:
-
-/usr/include/c++/12.2.0/numeric:
 
 /usr/include/assert.h:
 
@@ -361,10 +350,6 @@ CMakeFiles/my_project.dir/main.cpp.o: /home/ivi/CodeLocal/Projects/AI-learns-to-
 
 /usr/include/c++/12.2.0/bits/shared_ptr_atomic.h:
 
-/usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/opt_random.h:
-
-/usr/include/c++/12.2.0/ext/concurrence.h:
-
 /usr/include/c++/12.2.0/bits/allocated_ptr.h:
 
 /usr/include/c++/12.2.0/bits/shared_ptr_base.h:
@@ -383,19 +368,37 @@ CMakeFiles/my_project.dir/main.cpp.o: /home/ivi/CodeLocal/Projects/AI-learns-to-
 
 /usr/include/c++/12.2.0/tuple:
 
-/home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/network.hpp:
+/home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/sensor.hpp:
+
+/home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/AiGrid.hpp:
 
 /usr/include/c++/12.2.0/functional:
+
+/home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/network.hpp:
 
 /usr/include/c++/12.2.0/bits/stl_tempbuf.h:
 
 /usr/include/c++/12.2.0/bits/algorithmfwd.h:
 
+/usr/include/c++/12.2.0/numeric:
+
+/usr/include/c++/12.2.0/bits/random.tcc:
+
+/usr/include/c++/12.2.0/ext/concurrence.h:
+
+/usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/opt_random.h:
+
+/usr/include/c++/12.2.0/random:
+
+/home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/car.hpp:
+
+/home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/ColorMixer.hpp:
+
 /usr/include/c++/12.2.0/bits/basic_ios.tcc:
 
-/usr/include/c++/12.2.0/limits:
-
 /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/simulation.hpp:
+
+/usr/include/c++/12.2.0/limits:
 
 /usr/include/c++/12.2.0/bits/locale_facets.tcc:
 
@@ -477,9 +480,9 @@ CMakeFiles/my_project.dir/main.cpp.o: /home/ivi/CodeLocal/Projects/AI-learns-to-
 
 /usr/include/bits/types/__sigset_t.h:
 
-/usr/include/c++/12.2.0/algorithm:
-
 /home/ivi/CodeLocal/Projects/AI-learns-to-drive/AI-learns-to-drive/nlohmann/json.hpp:
+
+/usr/include/c++/12.2.0/algorithm:
 
 /usr/include/bits/types/__mbstate_t.h:
 
@@ -519,9 +522,9 @@ CMakeFiles/my_project.dir/main.cpp.o: /home/ivi/CodeLocal/Projects/AI-learns-to-
 
 /usr/include/bits/types/__fpos64_t.h:
 
-/usr/include/c++/12.2.0/bits/uniform_int_dist.h:
-
 /usr/include/c++/12.2.0/bits/stl_algo.h:
+
+/usr/include/c++/12.2.0/bits/uniform_int_dist.h:
 
 /usr/include/bits/types/clock_t.h:
 
