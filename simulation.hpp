@@ -71,26 +71,58 @@ void Simulation::DrawTextSim(const char *text, int posX, int posY, int fontSize,
 //}
 
 //
+std::vector<std::vector<Vector2>> NeuronPositions {};
 std::vector<char *> outputEmotes = {"LEFT","RIGHT","FORWARD","REVERSE"};
 void Simulation::DrawNN(NeuralNetwork & network){
+    if(!NeuronPositions.empty()) {
+        for (int currentLayer = 0; currentLayer < NeuronPositions.size() - 1; currentLayer++) {
+            for (int currentNeuron = 0; currentNeuron < NeuronPositions.at(currentLayer).size(); currentNeuron++) {
+                //            std::cout<<NeuronPositions.size();
+                //            DrawLineVSim(NeuronPositions.at(currentLayer).at(currentNeuron), NeuronPositions.at(currentLayer+1).at(1), WHITE);
+                for (int nextLayerNeuron = 0;
+                     nextLayerNeuron < NeuronPositions.at(currentLayer + 1).size(); nextLayerNeuron++) {
+                    float currentWeight = network.layers.at(currentLayer).grid.at(currentNeuron, nextLayerNeuron);
+                    DrawLineVSim(NeuronPositions.at(currentLayer).at(currentNeuron),
+                                 NeuronPositions.at(currentLayer + 1).at(nextLayerNeuron),
+                                 ColorMixLin(WallColor, CheckColor, (currentWeight + 1) / 2));
+                }
+            }
+        }
+    }
+
+
     const int mar = 100;
     int layerSize = network.layers.size();
     float yDisplacement = (SimulationSize.y-mar)/(layerSize);
-
+    NeuronPositions.clear();
     for(int y = 0; y<layerSize; y++){
         Layer & layer = network.layers.at(y);
         float xDisplacement = (SimulationSize.x-mar)/(layer.input.size()-1);
+        if(NeuronPositions.size() < y+1) NeuronPositions.push_back({});
         for(int x = 0; x<layer.input.size(); x++){
+            NeuronPositions.at(y).push_back(Vector2{x*xDisplacement +mar/2, SimulationSize.y -(y * yDisplacement +mar/2)});
             DrawCircleVSim(Vector2{x*xDisplacement +mar/2, SimulationSize.y -(y * yDisplacement +mar/2)}, 20,
-                           ColorMixLin(BLACK, YELLOW, (layer.input.at(x)+1)/2));
+                           ColorMixLin(BLACK, CheckColor, (layer.input.at(x)+1)/2));
         }
     }
+   NeuronPositions.push_back({});
     for(int l = 0; l<network.layers.at(layerSize-1).output.size(); l++){
         Layer & layer = network.layers.at(layerSize-1);
         float xDisplacement = (SimulationSize.x-mar)/(layer.output.size()-1);
-        DrawCircleVSim(Vector2{l*xDisplacement +mar/2, SimulationSize.y -(layerSize * yDisplacement +mar/2)}, 20, ColorMixLin(BLACK, YELLOW, (layer.output.at(l))));
+        NeuronPositions.at(layerSize).push_back(Vector2{l*xDisplacement +mar/2, SimulationSize.y -(layerSize * yDisplacement +mar/2)});
+        DrawCircleVSim(Vector2{l*xDisplacement +mar/2, SimulationSize.y -(layerSize * yDisplacement +mar/2)}, 20, ColorMixLin(BLACK, CheckColor, (layer.output.at(l))));
         if(l < network.layers.at(layerSize-1).output.size()){
             DrawTextSim(outputEmotes.at(l), l*xDisplacement +mar/2, SimulationSize.y -(layerSize * yDisplacement +mar/2)-40,10,WHITE);
         }
     }
+//    std::cout<<NeuronPositions.size()<<"\n";
+
+
+//    for(int layers = 0; layers<NeuronPositions.size(); layers++){
+//        for(int neurons = 0; neurons<NeuronPositions.at(layerSize).size();neurons++) {
+//            DrawCircleVSim(NeuronPositions.at(layers).at(neurons), 20, ColorMixLin(BLACK, YELLOW, (network.layers.at(layers).at(neurons))));
+//
+//        }
+//    }
+
 }

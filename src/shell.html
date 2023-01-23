@@ -68,7 +68,7 @@ jwE50AGjLCVuS8Yt4H7OgZLKK5EKOsLviEWJSL/+0uMi7gLUSBseYwqEbXvSHCec1CJvZPyHCmYQffaB
 1XTWVXMnzrhAn5DSOZVsiQlHnSITKzGj6DeTcZWc/3oy7h9//PF4PL4BlvsWrb6RE+oAAAAASUVORK5CYII=');
       }
 
-      .emscripten { padding-right: 0; margin-left: auto; margin-right: auto; display: block; }
+      .emscripten { padding-right: 0; margin-left: auto; margin-right: auto; Display: block; }
       div.emscripten { text-align: center; }
       div.emscripten_border { border: 1px solid black; }
 
@@ -85,7 +85,7 @@ jwE50AGjLCVuS8Yt4H7OgZLKK5EKOsLviEWJSL/+0uMi7gLUSBseYwqEbXvSHCec1CJvZPyHCmYQffaB
         margin: 0;
         margin-top: 20px;
         margin-left: 20px;
-        display: inline-block;
+        Display: inline-block;
         vertical-align: top;
         -webkit-animation: rotation .8s linear infinite;
         -moz-animation: rotation .8s linear infinite;
@@ -116,7 +116,7 @@ jwE50AGjLCVuS8Yt4H7OgZLKK5EKOsLviEWJSL/+0uMi7gLUSBseYwqEbXvSHCec1CJvZPyHCmYQffaB
       }
 
       #status {
-        display: inline-block;
+        Display: inline-block;
         vertical-align: top;
         margin-top: 30px;
         margin-left: 20px;
@@ -130,7 +130,7 @@ jwE50AGjLCVuS8Yt4H7OgZLKK5EKOsLviEWJSL/+0uMi7gLUSBseYwqEbXvSHCec1CJvZPyHCmYQffaB
       }
 
       #controls {
-        display: inline-block;
+        Display: inline-block;
         float: right;
         vertical-align: top;
         margin-top: 15px;
@@ -142,7 +142,7 @@ jwE50AGjLCVuS8Yt4H7OgZLKK5EKOsLviEWJSL/+0uMi7gLUSBseYwqEbXvSHCec1CJvZPyHCmYQffaB
         height: 140px;
         margin: 0 auto;
         margin-top: 10px;
-        display: block;
+        Display: block;
         background-color: black;
         color: rgb(37, 174, 38);
         font-family: 'Lucida Console', Monaco, monospace;
@@ -271,7 +271,7 @@ jwE50AGjLCVuS8Yt4H7OgZLKK5EKOsLviEWJSL/+0uMi7gLUSBseYwqEbXvSHCec1CJvZPyHCmYQffaB
                     progressElement.value = null;
                     progressElement.max = null;
                     progressElement.hidden = true;
-                    if (!text) spinnerElement.style.display = 'none';
+                    if (!text) spinnerElement.style.Display = 'none';
                 }
 
                 statusElement.innerHTML = text;
@@ -288,7 +288,7 @@ jwE50AGjLCVuS8Yt4H7OgZLKK5EKOsLviEWJSL/+0uMi7gLUSBseYwqEbXvSHCec1CJvZPyHCmYQffaB
 
         window.onerror = function() {
             Module.setStatus('Exception thrown, see JavaScript console');
-            spinnerElement.style.display = 'none';
+            spinnerElement.style.Display = 'none';
             Module.setStatus = function(text) { if (text) Module.printErr('[post-exception status] ' + text); };
         };
     </script>

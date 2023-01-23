@@ -1,7 +1,7 @@
 #include "AiGrid.hpp"
 
 double sigmoidSmaller(double x) {
-    return 2.0 / (1.0 + exp(-x)) - 0.5;
+    return 2.0 / (1.0 + exp(-x)) - 1;
 }
 double sigmoid(double x) {
     return 1.0 / (1.0 + exp(-x));

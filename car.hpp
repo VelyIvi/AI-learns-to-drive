@@ -57,6 +57,10 @@ public:
     const float maxSecNoCheckpoint = 2;
 
     void DrawBest(Simulation& canvas);
+
+    void DrawBest(Simulation &canvas, bool rays);
+
+    void DrawBest(Simulation &canvas, Color color, bool rays);
 };
 
 Car::Car(Vector2 pos, float rot, std::vector<std::vector<Vector2>> *w, std::vector<std::vector<Vector2>> *c) : sensor(w), nn(this->nnLayerSizes){
@@ -112,8 +116,29 @@ void Car::DrawBest(Simulation& canvas){
     } else {
         canvas.DrawRectangleProSim(getRec(), Vector2{size.x/2, size.y/2}, rotation, CarBestDeadColor);
     }
-    canvas.DrawCircleVSim(position, 3, RED);
+}
 
+void Car::DrawBest(Simulation& canvas, bool rays){
+    if(alive){
+//        sensor.Draw(position);
+        if (rays)
+            sensor.Draw(position, canvas);
+        canvas.DrawRectangleProSim(getRec(), Vector2{size.x/2, size.y/2}, rotation, CarBestColor);
+    } else {
+        canvas.DrawRectangleProSim(getRec(), Vector2{size.x/2, size.y/2}, rotation, CarBestDeadColor);
+    }
+}
+
+void Car::DrawBest(Simulation& canvas, Color color,bool rays){
+    if(alive){
+//        sensor.Draw(position);
+        if (rays)
+
+            sensor.Draw(position, canvas);
+        canvas.DrawRectangleProSim(getRec(), Vector2{size.x/2, size.y/2}, rotation, color);
+    } else {
+        canvas.DrawRectangleProSim(getRec(), Vector2{size.x/2, size.y/2}, rotation, ColorMixLin(color,BLACK,0.5));
+    }
 }
 
 void Car::Draw(){

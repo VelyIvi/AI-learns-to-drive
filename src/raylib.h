@@ -467,7 +467,7 @@ typedef struct VrDeviceInfo {
     float hScreenSize;              // Horizontal size in meters
     float vScreenSize;              // Vertical size in meters
     float vScreenCenter;            // Screen center in meters
-    float eyeToScreenDistance;      // Distance between eye and display in meters
+    float eyeToScreenDistance;      // Distance between eye and Display in meters
     float lensSeparationDistance;   // Lens separation distance in meters
     float interpupillaryDistance;   // IPD (distance between pupils) in meters
     float lensDistortionValues[4];  // Lens distortion constant parameters
