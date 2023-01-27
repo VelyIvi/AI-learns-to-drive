@@ -61,6 +61,11 @@ public:
     void DrawBest(Simulation &canvas, bool rays);
 
     void DrawBest(Simulation &canvas, Color color, bool rays);
+
+    void BackPropagation(float amount);
+
+    float learningRate = 0.01;
+
 };
 
 Car::Car(Vector2 pos, float rot, std::vector<std::vector<Vector2>> *w, std::vector<std::vector<Vector2>> *c) : sensor(w), nn(this->nnLayerSizes){
@@ -231,6 +236,7 @@ void Car::Update(float& delta){
 
     if(currentSecCheckpoint > maxSecNoCheckpoint){
         alive = false;
+        BackPropagation(-learningRate);
     }
     currentSecCheckpoint=currentSecCheckpoint+delta;
 }
@@ -271,6 +277,7 @@ std::vector<int> Car::CheckCollider(std::vector<std::vector<Vector2>>* array) co
 void Car::CheckCollisions(){
     if (Collider(wall)){
         alive = false;
+        BackPropagation(-learningRate);
     }
     std::vector<int> CheckCollidedNum;
     CheckCollidedNum = CheckCollider(check);
@@ -279,6 +286,7 @@ void Car::CheckCollisions(){
             std::sort(checkCollided.begin(), checkCollided.end());
             if (!std::binary_search(checkCollided.begin(), checkCollided.end(), CheckCollidedCurrent)) {
                 points++;
+                BackPropagation(learningRate);
                 currentSecCheckpoint = 0;
                 checkCollided.push_back(CheckCollidedCurrent);
             }
@@ -300,4 +308,8 @@ void Car::ResetValues(Vector2& pos, float& rot, bool lives) {
 
 
     currentSecCheckpoint = 0;
+}
+
+void Car::BackPropagation(float amount) {
+    nn.BackPropagation(amount);
 }

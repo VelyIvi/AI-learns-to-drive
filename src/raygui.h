@@ -3193,7 +3193,7 @@ int GuiTextInputBox(Rectangle bounds, const char *title, const char *message, co
 }
 
 // Grid control
-// NOTE: Returns grid mouse-hover selected cell
+// NOTE: Returns Grid mouse-hover selected cell
 // About drawing lines at subpixel spacing, simple put, not easy solution:
 // https://stackoverflow.com/questions/4435450/2d-opengl-drawing-lines-that-dont-exactly-fit-pixel-raster
 Vector2 GuiGrid(Rectangle bounds, const char *text, float spacing, int subdivs)
@@ -3234,14 +3234,14 @@ Vector2 GuiGrid(Rectangle bounds, const char *text, float spacing, int subdivs)
         {
             if (subdivs > 0)
             {
-                // Draw vertical grid lines
+                // Draw vertical Grid lines
                 for (int i = 0; i < linesV; i++)
                 {
                     Rectangle lineV = { bounds.x + spacing*i/subdivs, bounds.y, 1, bounds.height };
                     GuiDrawRectangle(lineV, 0, BLANK, ((i%subdivs) == 0) ? Fade(GetColor(GuiGetStyle(DEFAULT, LINE_COLOR)), RAYGUI_GRID_ALPHA*4) : Fade(GetColor(GuiGetStyle(DEFAULT, LINE_COLOR)), RAYGUI_GRID_ALPHA));
                 }
 
-                // Draw horizontal grid lines
+                // Draw horizontal Grid lines
                 for (int i = 0; i < linesH; i++)
                 {
                     Rectangle lineH = { bounds.x, bounds.y + spacing*i/subdivs, bounds.width, 1 };

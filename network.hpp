@@ -1,4 +1,4 @@
-#include "AiGrid.hpp"
+#include "grid.hpp"
 
 double sigmoidSmaller(double x) {
     return 2.0 / (1.0 + exp(-x)) - 1;
@@ -15,13 +15,14 @@ double sigmoid_derivative(double x) {
 double tanh(double x) {
     return (exp(2*x)-1)/(exp(2*x)+1);
 }
+
 class Layer{
 public:
     std::vector<float> input;
     std::vector<float> output;
     std::vector<float> bias;
 public:
-    AiGrid grid;
+    Grid grid;
     Layer(int inputCount, int outputCount);
     ~Layer();
     void Randomize();
@@ -29,6 +30,9 @@ public:
     std::vector<float> feedForwardLinear(std::vector<float> givenInputs);
 
     std::vector<float> feedForwardSigmoid(std::vector<float> givenInputs);
+
+    void BackPropagation(float amount);
+
 };
 
 void Layer::Randomize() {
@@ -83,6 +87,17 @@ std::vector<float> Layer::feedForwardLinear(std::vector<float> givenInputs) {
     }
     return output;
 }
+
+void Layer::BackPropagation(float amount) {
+    for(float & b : bias){
+        b = b + b*amount;
+    }
+
+    for(float & f : grid.table){
+        f = f + f*amount;
+    }
+}
+
 class NeuralNetwork {
 private:
 public:
@@ -95,6 +110,8 @@ public:
 
     std::vector<float> feedForward(std::vector<float> input);
     std::vector<float> getOutput(std::vector<float> input);
+
+    void BackPropagation(float amount);
 };
 
 void  NeuralNetwork::Randomize() {
@@ -143,5 +160,11 @@ std::vector<float> NeuralNetwork::feedForward(std::vector<float> input) {
 
 std::vector<float> NeuralNetwork::getOutput(std::vector<float> input) {
     return feedForward(std::move(input));
+}
+
+void NeuralNetwork::BackPropagation(float amount) {
+    for(Layer & l : layers){
+        l.BackPropagation(amount);
+    }
 }
 
