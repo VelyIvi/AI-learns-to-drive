@@ -20,10 +20,13 @@ void retrySim(){
     float mut = mutationValue;
     currentGeneration++;
     currentSimTime = 0;
+
+    aliveCar.clear();
     for(int x = 0; x<car.size(); x++){
         aliveCar.push_back(x);
     }
     NeuralNetwork bestSavedNN = bestCar->nn;
+    car.at(0).nn = bestSavedNN;
     for(int i = 0; i<car.size(); i++){
 //        if(i < car.size()/3*2) {
         car.at(i).nn = bestSavedNN;
@@ -57,6 +60,11 @@ void ResetGen(){
 
 void CheckSim(){
     if(aliveCar.empty()){
+        for(Car& i: car){
+            if (i.points > bestCar->points){
+                bestCar = &i;
+            }
+        }
         retrySim();
         return;
     }

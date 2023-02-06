@@ -1,4 +1,5 @@
 // https://lospec.com/palette-list/cmykool
+//Maby: https://lospec.com/palette-list/pastel-16
 #define CarColor (Color) {161, 241, 255, 150}
 #define CarDeadColor (Color) {91, 188, 252, 70}
 

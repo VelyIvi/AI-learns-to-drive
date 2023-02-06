@@ -200,17 +200,34 @@ int main(){
             selectedCar = &car.at(CenteredCar);
         }
         if(Pause) {
-            delta = GetFrameTime();
+//            delta = GetFrameTime();
+            delta = 1.0f/60.0f;
 
             if (!Display) {
                 for (Car &cCar: car) {
                     cCar.Update(delta);
                 }
+                for (Car &cCar: car) {
+                    cCar.Update(delta);
+                }
+                for (Car &cCar: car) {
+                    cCar.Update(delta);
+                }
+                for (Car &cCar: car) {
+                    cCar.Update(delta);
+                }
+                for (Car &cCar: car) {
+                    cCar.Update(delta);
+                }
+
+                currentSimTime = currentSimTime + 4*delta;
+                simTime = simTime + 4*delta;
 
             } else {
                 for (Car &cCar: car) {
                     cCar.Update(delta);
                 }
+
             }
         }
 
